@@ -593,8 +593,8 @@
     <script>
         // Mapeamento Completo de ISOs para FlagCDN
         const flagsRegistry = {
-            "México": "mx", "África do Sul": "za", "Coreia do Sul": "kr", "Rep. Tcheca/Irlanda": "cz",
-            "Canadá": "ca", "Itália/País de Gales": "gb-wls", "EUA": "us", "Paraguai": "py",
+            "México": "mx", "África do Sul": "za", "Coreia do Sul": "kr", "Rep. Tcheca": "cz",
+            "Canadá": "ca", "País de Gales": "gb-wls", "EUA": "us", "Paraguai": "py",
             "Austrália": "au", "Turquia/Romênia": "tr", "Catar": "qa", "Suíça": "ch",
             "Brasil": "br", "Marrocos": "ma", "Haiti": "ht", "Escócia": "gb-sct",
             "Alemanha": "de", "Curaçau": "cw", "Holanda": "nl", "Japão": "jp",
@@ -610,10 +610,10 @@
         const gruposData = {
             "A": [
                 { name: "México", desc: "País Sede - Força Local" }, { name: "África do Sul", desc: "Representante Africano" },
-                { name: "Coreia do Sul", desc: "Velocidade Asiática" }, { name: "Rep. Tcheca/Irlanda", desc: "Qualificatória Europeia" }
+                { name: "Coreia do Sul", desc: "Velocidade Asiática" }, { name: "Rep. Tcheca", desc: "Qualificatória Europeia" }
             ],
             "B": [
-                { name: "Canadá", desc: "País Sede - Evolução" }, { name: "Itália/País de Gales", desc: "Tradição em Campo" },
+                { name: "Canadá", desc: "País Sede - Evolução" }, { name: "País de Gales", desc: "Tradição em Campo" },
                 { name: "EUA", desc: "País Sede - Gigante Técnico" }, { name: "Paraguai", desc: "Garra Conmebol" }
             ],
             "C": [
@@ -661,8 +661,8 @@
         const jogosData = [
             // 1ª Rodada
             {data: "11/06", grupo: "A", hora: "16:00", time1: "México", time2: "África do Sul", local: "Cidade do México", rodada: "1ª"},
-            {data: "11/06", grupo: "A", hora: "23:00", time1: "Coreia do Sul", time2: "Rep. Tcheca/Irlanda", local: "Guadalajara", rodada: "1ª"},
-            {data: "12/06", grupo: "B", hora: "16:00", time1: "Canadá", time2: "Itália/País de Gales", local: "Toronto", rodada: "1ª"},
+            {data: "11/06", grupo: "A", hora: "23:00", time1: "Coreia do Sul", time2: "Rep. Tcheca", local: "Guadalajara", rodada: "1ª"},
+            {data: "12/06", grupo: "B", hora: "16:00", time1: "Canadá", time2: "País de Gales", local: "Toronto", rodada: "1ª"},
             {data: "12/06", grupo: "B", hora: "22:00", time1: "EUA", time2: "Paraguai", local: "Los Angeles", rodada: "1ª"},
             {data: "13/06", grupo: "D", hora: "01:00", time1: "Austrália", time2: "Turquia/Romênia", local: "Vancouver", rodada: "1ª"},
             {data: "13/06", grupo: "D", hora: "16:00", time1: "Catar", time2: "Suíça", local: "San Francisco", rodada: "1ª"},
@@ -686,8 +686,8 @@
             {data: "17/06", grupo: "L", hora: "23:00", time1: "Uzbequistão", time2: "Colômbia", local: "Cidade do México", rodada: "1ª"},
 
             // 2ª Rodada
-            {data: "18/06", grupo: "A", hora: "13:00", time1: "Rep. Tcheca/Irlanda", time2: "África do Sul", local: "Atlanta", rodada: "2ª"},
-            {data: "18/06", grupo: "D", hora: "16:00", time1: "Suíça", time2: "Itália/País de Gales", local: "Los Angeles", rodada: "2ª"},
+            {data: "18/06", grupo: "A", hora: "13:00", time1: "Rep. Tcheca", time2: "África do Sul", local: "Atlanta", rodada: "2ª"},
+            {data: "18/06", grupo: "D", hora: "16:00", time1: "Suíça", time2: "País de Gales", local: "Los Angeles", rodada: "2ª"},
             {data: "18/06", grupo: "D", hora: "19:00", time1: "Canadá", time2: "Catar", local: "Vancouver", rodada: "2ª"},
             {data: "18/06", grupo: "A", hora: "22:00", time1: "México", time2: "Coreia do Sul", local: "Guadalajara", rodada: "2ª"},
             {data: "19/06", grupo: "B", hora: "01:00", time1: "Turquia/Romênia", time2: "Paraguai", local: "San Francisco", rodada: "2ª"},
@@ -713,10 +713,10 @@
 
             // 3ª Rodada (Trecho recuperado e fechado)
             {data: "24/06", grupo: "D", hora: "16:00", time1: "Suíça", time2: "Canadá", local: "Vancouver", rodada: "3ª"},
-            {data: "24/06", grupo: "D", hora: "16:00", time1: "Itália/País de Gales", time2: "Catar", local: "Seattle", rodada: "3ª"},
+            {data: "24/06", grupo: "D", hora: "16:00", time1: "País de Gales", time2: "Catar", local: "Seattle", rodada: "3ª"},
             {data: "24/06", grupo: "C", hora: "19:00", time1: "Escócia", time2: "Brasil", local: "Miami", rodada: "3ª", brasil: true},
             {data: "24/06", grupo: "C", hora: "19:00", time1: "Marrocos", time2: "Haiti", local: "Atlanta", rodada: "3ª"},
-            {data: "24/06", grupo: "A", hora: "22:00", time1: "Rep. Tcheca/Irlanda", time2: "México", local: "Cidade do México", rodada: "3ª"},
+            {data: "24/06", grupo: "A", hora: "22:00", time1: "Rep. Tcheca", time2: "México", local: "Cidade do México", rodada: "3ª"},
             {data: "24/06", grupo: "A", hora: "22:00", time1: "África do Sul", time2: "Coreia do Sul", local: "Monterrey", rodada: "3ª"},
             {data: "25/06", grupo: "E", hora: "17:00", time1: "Equador", time2: "Alemanha", local: "Nova York/NJ", rodada: "3ª"},
             {data: "25/06", grupo: "E", hora: "17:00", time1: "Curaçau", time2: "Costa do Marfim", local: "Filadélfia", rodada: "3ª"},
