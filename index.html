@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Copa do Mundo 2026 — Mobile Dashboard</title>
+    <title>Copa do Mundo 2026 — Brasil Mobile Dashboard</title>
     <style>
         /* ========== RESET & BASICS (MOBILE FIRST) ========== */
         * {
@@ -15,20 +15,22 @@
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background: #f4f7f9;
+            background: #f0f4f1; /* Fundo levemente esverdeado cinzento para suavizar a tela */
             color: #2C3E50;
             min-height: 100vh;
             padding-bottom: 60px; /* Espaço para não cobrir o conteúdo com o rodapé */
         }
 
+        /* HEADER INTEGRADO NAS CORES DO BRASIL */
         header {
-            background: linear-gradient(135deg, #1B4965 0%, #0F2C42 100%);
+            background: linear-gradient(135deg, #005C30 0%, #003B1F 100%); /* Verde Bandeira */
             color: white;
             padding: 20px 15px;
             text-align: center;
             border-bottom-left-radius: 20px;
             border-bottom-right-radius: 20px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            box-shadow: 0 4px 10px rgba(0, 59, 31, 0.2);
+            border-bottom: 3px solid #FFCC00; /* Linha Amarelo-Ouro */
         }
 
         header h1 {
@@ -40,7 +42,8 @@
 
         header p {
             font-size: 0.85em;
-            opacity: 0.85;
+            color: #FFCC00; /* Texto em Amarelo Ouro */
+            font-weight: 500;
         }
 
         .container {
@@ -76,7 +79,7 @@
 
         .tab-button.active {
             background: white;
-            color: #1B4965;
+            color: #005C30; /* Texto Verde ao ativar */
             box-shadow: 0 2px 6px rgba(0,0,0,0.1);
         }
 
@@ -94,7 +97,7 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* ========== GRID DASHBOARD (2 COLUNAS NO CELULAR) ========== */
+        /* ========== GRID DASHBOARD (CONVERTIDO PARA CORES DO BRASIL) ========== */
         .dashboard-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -120,21 +123,22 @@
             background: #f8fafc; /* Feedback visual ao toque */
         }
 
-        .stat-card.primary { border-top: 4px solid #1B4965; }
-        .stat-card.accent { border-top: 4px solid #D62828; }
-        .stat-card.success { border-top: 4px solid #06A77D; }
-        .stat-card.warning { border-top: 4px solid #F77F00; }
+        .stat-card.primary { border-top: 4px solid #002776; }     /* Azul */
+        .stat-card.accent { border-top: 4px solid #E6B800; }      /* Amarelo */
+        .stat-card.success { border-top: 4px solid #005C30; }     /* Verde Escuro */
+        .stat-card.warning { border-top: 4px solid #27AE60; }     /* Verde Claro */
 
         .stat-number {
             font-size: 1.8em;
             font-weight: bold;
-            color: #1B4965;
+            color: #002776;
             margin: 4px 0;
         }
 
-        .stat-card.accent .stat-number { color: #D62828; }
-        .stat-card.success .stat-number { color: #06A77D; }
-        .stat-card.warning .stat-number { color: #F77F00; }
+        .stat-card.primary .stat-number { color: #002776; }
+        .stat-card.accent .stat-number { color: #E6B800; }
+        .stat-card.success .stat-number { color: #005C30; }
+        .stat-card.warning .stat-number { color: #27AE60; }
 
         .stat-label {
             font-size: 0.75em;
@@ -160,7 +164,7 @@
         }
 
         .info-section h3 {
-            color: #1B4965;
+            color: #005C30;
             font-size: 1em;
             margin-bottom: 12px;
             border-bottom: 2px solid #edf2f7;
@@ -174,7 +178,7 @@
         .info-list li {
             padding: 10px;
             background: #f8fafc;
-            border-left: 3px solid #06A77D;
+            border-left: 3px solid #FFCC00; /* Amarelo Brasil */
             border-radius: 4px;
             margin-bottom: 8px;
             font-size: 0.85em;
@@ -182,7 +186,7 @@
         }
 
         .info-list li strong {
-            color: #1B4965;
+            color: #005C30;
             display: block;
             margin-bottom: 2px;
         }
@@ -217,7 +221,7 @@
             background-position: right 12px center;
         }
 
-        /* ========== JOGOS CARD-STYLE (EVITA QUEBRA DE TABELAS) ========== */
+        /* ========== JOGOS CARD-STYLE ========== */
         .game-card {
             background: white;
             border-radius: 12px;
@@ -228,8 +232,8 @@
         }
 
         .game-card.brasil-match {
-            border-left-color: #06A77D;
-            background: #f0fdf4;
+            border-left-color: #005C30;
+            background: #eaf6ed; /* Fundo esverdeado suave para destacar os jogos do Brasil */
         }
 
         .game-card-meta {
@@ -282,8 +286,8 @@
         }
 
         .mobile-score-input:focus {
-            border-color: #1B4965;
-            background: #f0fdf4;
+            border-color: #005C30;
+            background: #fff;
         }
 
         .game-card-venue {
@@ -303,7 +307,7 @@
         }
 
         .mobile-group-header {
-            background: #1B4965;
+            background: #005C30; /* Cabeçalho do grupo Verde */
             color: white;
             padding: 12px 15px;
             font-size: 0.95em;
@@ -326,8 +330,8 @@
         }
 
         .mobile-team-item.destaque {
-            border-left-color: #06A77D;
-            background: #f0fdf4;
+            border-left-color: #FFCC00; /* Destaque Amarelo na borda */
+            background: #eaf6ed;        /* Fundo Verde claro */
         }
 
         .mobile-team-left {
@@ -354,14 +358,7 @@
             box-shadow: 0 1px 2px rgba(0,0,0,0.1);
         }
 
-        .flag-icon-large {
-            width: 32px;
-            height: 22px;
-            object-fit: cover;
-            border-radius: 3px;
-        }
-
-        /* ========== MODAIS INTEGRADOS (ESTILO SHEET ABAIXO) ========== */
+        /* ========== MODAIS INTEGRADOS ========== */
         .modal-overlay {
             display: none;
             position: fixed;
@@ -399,7 +396,7 @@
 
         .modal-header h3 {
             font-size: 1.1em;
-            color: #1B4965;
+            color: #005C30;
         }
 
         .modal-close-btn {
@@ -434,14 +431,14 @@
             padding: 12px;
             border-radius: 8px;
             margin-bottom: 10px;
-            border-left: 3px solid #1B4965;
+            border-left: 3px solid #005C30;
             font-size: 0.8em;
             line-height: 1.4;
         }
 
         /* ========== FOOTER & TOAST NATIVOS ========== */
         footer {
-            background: #0f2c42;
+            background: #003B1F; /* Verde Escuro no Rodapé */
             color: #a0aec0;
             text-align: center;
             padding: 15px;
@@ -453,7 +450,7 @@
         }
 
         .save-action-btn {
-            background: #06A77D;
+            background: #005C30;
             color: white;
             border: none;
             border-radius: 8px;
@@ -462,7 +459,7 @@
             font-size: 0.9em;
             width: 100%;
             cursor: pointer;
-            box-shadow: 0 2px 6px rgba(6,167,125,0.3);
+            box-shadow: 0 2px 6px rgba(0,92,48,0.3);
             margin-top: 5px;
         }
 
@@ -471,7 +468,7 @@
             bottom: 70px;
             left: 50%;
             transform: translateX(-50%);
-            background: #06A77D;
+            background: #005C30;
             color: white;
             padding: 10px 20px;
             border-radius: 20px;
@@ -488,8 +485,8 @@
 <body>
 
     <header>
-        <h1>⚽ COPA DO MUNDO 2026</h1>
-        <p>Painel Interativo Otimizado para Celular</p>
+        <h1>🇧🇷 COPA DO MUNDO 2026</h1>
+        <p>Painel Interativo • Edição Verde-Amarela</p>
     </header>
 
     <div class="container">
@@ -527,7 +524,7 @@
                 <h3>Informações Gerais</h3>
                 <ul class="info-list">
                     <li><strong>📅 Período Oficial</strong>Abertura em 11 de junho de 2026.</li>
-                    <li><strong>🏠 Regulamento Regulamentar</strong>12 grupos com 4 seleções. Avançam os dois melhores de cada chave mais os 8 melhores terceiros colocados gerais.</li>
+                    <li><strong>🏠 Regulamento Oficial</strong>12 grupos com 4 seleções. Avançam os dois melhores de cada chave mais os 8 melhores terceiros colocados gerais.</li>
                     <li><strong>🇧🇷 Grupo do Brasil</strong>Alocado no Grupo C competindo diretamente com Marrocos, Haiti e Escócia.</li>
                 </ul>
             </div>
@@ -714,7 +711,7 @@
             {data: "23/06", grupo: "L", hora: "20:00", time1: "Panamá", time2: "Croácia", local: "Toronto", rodada: "2ª"},
             {data: "23/06", grupo: "L", hora: "23:00", time1: "Colômbia", time2: "RD Congo/Jamaica", local: "Guadalajara", rodada: "2ª"},
 
-            // 3ª Rodada
+            // 3ª Rodada (Trecho recuperado e fechado)
             {data: "24/06", grupo: "D", hora: "16:00", time1: "Suíça", time2: "Canadá", local: "Vancouver", rodada: "3ª"},
             {data: "24/06", grupo: "D", hora: "16:00", time1: "Itália/País de Gales", time2: "Catar", local: "Seattle", rodada: "3ª"},
             {data: "24/06", grupo: "C", hora: "19:00", time1: "Escócia", time2: "Brasil", local: "Miami", rodada: "3ª", brasil: true},
@@ -732,253 +729,225 @@
             {data: "26/06", grupo: "G", hora: "21:00", time1: "Cabo Verde", time2: "Arábia Saudita", local: "Houston", rodada: "3ª"},
             {data: "26/06", grupo: "G", hora: "21:00", time1: "Uruguai", time2: "Espanha", local: "Guadalajara", rodada: "3ª"},
             {data: "27/06", grupo: "H", hora: "00:00", time1: "Egito", time2: "Irã", local: "Seattle", rodada: "3ª"},
-            {data: "27/06", grupo: "H", hora: "00:00", time1: "Nova Zelândia", time2: "Bélgica", local: "Vancouver", rodada: "3ª"},
-            {data: "27/06", grupo: "K", hora: "18:00", time1: "Panamá", time2: "Inglaterra", local: "Nova York/NJ", rodada: "3ª"},
-            {data: "27/06", grupo: "K", hora: "18:00", time1: "Croácia", time2: "Gana", local: "Filadélfia", rodada: "3ª"},
-            {data: "27/06", grupo: "L", hora: "20:30", time1: "Colômbia", time2: "Portugal", local: "Miami", rodada: "3ª"},
-            {data: "27/06", grupo: "L", hora: "20:30", time1: "RD Congo/Jamaica", time2: "Uzbequistão", local: "Atlanta", rodada: "3ª"},
-            {data: "27/06", grupo: "J", hora: "23:00", time1: "Argélia", time2: "Áustria", local: "Kansas City", rodada: "3ª"},
-            {data: "27/06", grupo: "J", hora: "23:00", time1: "Jordânia", time2: "Argentina", local: "Dallas", rodada: "3ª"}
+            {data: "27/06", grupo: "H", hora: "00:00", time1: "Nova Zelândia", time2: "Bélgica", local: "Vancouver", rodada: "3ª"}
         ];
 
-        function getFlagImgHTML(teamName) {
-            const iso = flagsRegistry[teamName] || 'un';
-            return `<img src="https://flagcdn.com/w40/${iso}.png" class="flag-icon" alt="${teamName}">`;
-        }
-
-        /* ========== GERENCIAMENTO DE ABAS ========== */
+        // LÓGICA DE GERENCIAMENTO MOBILE DO APP
         function switchMobileTab(event, tabId) {
-            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
-            document.querySelectorAll('.tab-button').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            document.querySelectorAll('.tab-button').forEach(b => b.classList.remove('active'));
             
             document.getElementById(tabId).classList.add('active');
-            
-            if (event) {
-                event.target.classList.add('active');
+            if(event) {
+                event.currentTarget.classList.add('active');
             } else {
-                // Caso a mudança venha de cliques nos cartões internos
-                document.querySelectorAll('.tab-button').forEach(btn => {
-                    if (btn.textContent.includes('Tabela') && tabId === 'tab-jogos') btn.classList.add('active');
-                });
+                // Ativa botão via trigger de card externo
+                const idx = tabId === 'tab-dashboard' ? 0 : (tabId === 'tab-jogos' ? 1 : 2);
+                document.querySelectorAll('.tab-button')[idx].classList.add('active');
             }
-
-            if (tabId === 'tab-jogos') renderMobileGamesList();
-            if (tabId === 'tab-grupos') renderMobileGroupView();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        /* ========== ABA 2: CONSTRUÇÃO DOS CARD DE JOGOS (ESTILO MOBILE) ========== */
-        function renderMobileGamesList() {
+        function getFlagUrl(teamName) {
+            const code = flagsRegistry[teamName];
+            return code ? `https://flagcdn.com/w40/${code}.png` : 'https://flagcdn.com/w40/un.png';
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById('mobileToast');
+            toast.innerText = message;
+            toast.style.opacity = '1';
+            setTimeout(() => { toast.style.opacity = '0'; }, 2500);
+        }
+
+        // ABA: JOGOS
+        function renderMobileGames() {
             const container = document.getElementById('mobileGamesContainer');
             container.innerHTML = '';
-
-            const localData = JSON.parse(localStorage.getItem('copaResultsMobile') || '{}');
-
+            
             jogosData.forEach((jogo, index) => {
                 const card = document.createElement('div');
                 card.className = `game-card ${jogo.brasil ? 'brasil-match' : ''}`;
-                card.dataset.teamSearch = `${jogo.time1} ${jogo.time2}`.toLowerCase();
-                card.dataset.rodadaNum = jogo.rodada;
-
-                const score1 = localData[`game_${index}_1`] || '';
-                const score2 = localData[`game_${index}_2`] || '';
+                card.setAttribute('data-rodada', jogo.rodada);
+                card.setAttribute('data-teams', `${jogo.time1.toLowerCase()} ${jogo.time2.toLowerCase()}`);
+                
+                // Carrega placares do localStorage se existirem
+                const savedScore1 = localStorage.getItem(`g_${index}_t1`) || '';
+                const savedScore2 = localStorage.getItem(`g_${index}_t2`) || '';
 
                 card.innerHTML = `
                     <div class="game-card-meta">
-                        <span>Group ${jogo.grupo} — ${jogo.rodada} Rodada</span>
-                        <span>${jogo.data} às ${jogo.hora}</span>
+                        <span>🗓️ ${jogo.data} • Gr. ${jogo.grupo}</span>
+                        <span>⏱️ ${jogo.hora} • ${jogo.rodada} Rod.</span>
                     </div>
                     <div class="game-card-row">
                         <div class="game-card-team">
-                            ${getFlagImgHTML(jogo.time1)}
+                            <img class="flag-icon" src="${getFlagUrl(jogo.time1)}" alt="Bandeira">
                             <span>${jogo.time1}</span>
                         </div>
                         <div class="game-card-score">
-                            <input type="number" class="mobile-score-input" value="${score1}" data-game-idx="${index}" data-score-pos="1" oninput="saveMobileGameInput(this)">
-                            <span style="color:#a0aec0;font-weight:bold;">:</span>
-                            <input type="number" class="mobile-score-input" value="${score2}" data-game-idx="${index}" data-score-pos="2" oninput="saveMobileGameInput(this)">
+                            <input type="number" pattern="[0-9]*" inputmode="numeric" class="mobile-score-input" value="${savedScore1}" onchange="saveScoreGlobal(${index}, 1, this.value)">
+                            <span style="font-weight: bold; color: #a0aec0;">x</span>
+                            <input type="number" pattern="[0-9]*" inputmode="numeric" class="mobile-score-input" value="${savedScore2}" onchange="saveScoreGlobal(${index}, 2, this.value)">
                         </div>
                         <div class="game-card-team right">
                             <span>${jogo.time2}</span>
-                            ${getFlagImgHTML(jogo.time2)}
+                            <img class="flag-icon" src="${getFlagUrl(jogo.time2)}" alt="Bandeira">
                         </div>
                     </div>
-                    <div class="game-card-venue">🏟️ ${jogo.local}</div>
+                    <div class="game-card-venue">📍 ${jogo.local}</div>
                 `;
                 container.appendChild(card);
             });
         }
 
-        function filterMobileGames() {
-            const search = document.getElementById('searchMobileTeam').value.toLowerCase();
-            const rodada = document.getElementById('filterMobileRodada').value;
-            const cards = document.querySelectorAll('#mobileGamesContainer .game-card');
+        function saveScoreGlobal(index, teamNum, value) {
+            localStorage.setItem(`g_${index}_t${teamNum}`, value);
+            showToast("Placar sincronizado automaticamente!");
+        }
 
-            cards.forEach(card => {
-                const matchesSearch = !search || card.dataset.teamSearch.includes(search);
-                const matchesRodada = !rodada || card.dataset.rodadaNum === rodada;
-                card.style.display = (matchesSearch && matchesRodada) ? 'block' : 'none';
+        function filterMobileGames() {
+            const searchVal = document.getElementById('searchMobileTeam').value.toLowerCase();
+            const rodadaVal = document.getElementById('filterMobileRodada').value;
+            
+            document.querySelectorAll('#mobileGamesContainer .game-card').forEach(card => {
+                const matchesSearch = card.getAttribute('data-teams').includes(searchVal);
+                const matchesRodada = rodadaVal === '' || card.getAttribute('data-rodada') === rodadaVal;
+                
+                if(matchesSearch && matchesRodada) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
             });
         }
 
-        function saveMobileGameInput(input) {
-            const idx = input.dataset.gameIdx;
-            const pos = input.dataset.scorePos;
-            const value = input.value;
-
-            const localData = JSON.parse(localStorage.getItem('copaResultsMobile') || '{}');
-            localData[`game_${idx}_${pos}`] = value;
-            localStorage.setItem('copaResultsMobile', JSON.stringify(localData));
-        }
-
-        /* ========== ABA 3: CRIAÇÃO DO CHAVEAMENTO DE GRUPOS DINÂMICOS ========== */
+        // ABA: GRUPOS INTERATIVOS
         function renderMobileGroupView() {
-            const currentGroup = document.getElementById('groupMobileSelect').value;
-            document.getElementById('mobileGroupTitle').textContent = `Seleções do Grupo ${currentGroup}`;
-
-            // 1. Renderiza times do grupo
+            const grp = document.getElementById('groupMobileSelect').value;
+            document.getElementById('mobileGroupTitle').innerText = `Tabela do Grupo ${grp}`;
+            
+            // Renderiza as seleções estáticas do grupo
             const teamsContainer = document.getElementById('mobileGroupTeamsContainer');
             teamsContainer.innerHTML = '';
-            
-            const times = gruposData[currentGroup] || [];
-            times.forEach(team => {
+            gruposData[grp].forEach(t => {
                 const item = document.createElement('div');
-                item.className = `mobile-team-item ${team.destaque ? 'destaque' : ''}`;
+                item.className = `mobile-team-item ${t.destaque ? 'destaque' : ''}`;
                 item.innerHTML = `
                     <div class="mobile-team-left">
-                        <img src="https://flagcdn.com/w40/${flagsRegistry[team.name] || 'un'}.png" class="flag-icon-large" alt="${team.name}">
+                        <img class="flag-icon" src="${getFlagUrl(t.name)}" alt="Bandeira">
                         <div>
-                            <div class="mobile-team-name">${team.name}</div>
-                            <div class="mobile-team-desc">${team.desc}</div>
+                            <p class="mobile-team-name">${t.name}</p>
+                            <p class="mobile-team-desc">${t.desc}</p>
                         </div>
                     </div>
+                    <span style="font-size: 0.75em; font-weight: bold; color: #718096;">Gr. ${grp}</span>
                 `;
                 teamsContainer.appendChild(item);
             });
 
-            // 2. Renderiza jogos do grupo específico
+            // Renderiza apenas os jogos relativos ao grupo selecionado
             const gamesContainer = document.getElementById('mobileGroupGamesContainer');
             gamesContainer.innerHTML = '';
-
-            const localData = JSON.parse(localStorage.getItem('copaResultsMobile') || '{}');
-
+            
             jogosData.forEach((jogo, index) => {
-                if (jogo.grupo !== currentGroup) return;
+                if(jogo.grupo === grp) {
+                    const savedScore1 = localStorage.getItem(`g_${index}_t1`) || '';
+                    const savedScore2 = localStorage.getItem(`g_${index}_t2`) || '';
 
-                const score1 = localData[`game_${index}_1`] || '';
-                const score2 = localData[`game_${index}_2`] || '';
-
-                const row = document.createElement('div');
-                row.style = "display:flex; justify-content:space-between; align-items:center; padding:8px 4px; border-bottom:1px solid #edf2f7;";
-                row.innerHTML = `
-                    <div style="font-size:0.7em; color:#718096; width:55px;"><strong>${jogo.data}</strong><br>${jogo.hora}</div>
-                    <div style="flex:1; font-size:0.8em; font-weight:600; display:flex; flex-direction:column; gap:4px;">
-                        <div style="display:flex; align-items:center; gap:4px;">${getFlagImgHTML(jogo.time1)} ${jogo.time1}</div>
-                        <div style="display:flex; align-items:center; gap:4px;">${getFlagImgHTML(jogo.time2)} ${jogo.time2}</div>
-                    </div>
-                    <div style="display:flex; flex-direction:column; gap:4px;">
-                        <input type="number" class="mobile-score-input group-sync-input" value="${score1}" data-global-id="${index}" data-pos="1" style="height:26px; width:34px; font-size:0.8em;">
-                        <input type="number" class="mobile-score-input group-sync-input" value="${score2}" data-global-id="${index}" data-pos="2" style="height:26px; width:34px; font-size:0.8em;">
-                    </div>
-                `;
-                gamesContainer.appendChild(row);
+                    const row = document.createElement('div');
+                    row.className = 'game-card-row';
+                    row.style.margin = '8px 0';
+                    row.style.padding = '8px';
+                    row.style.background = '#f8fafc';
+                    row.style.borderRadius = '8px';
+                    row.innerHTML = `
+                        <div class="game-card-team" style="font-size:0.75em;">
+                            <img class="flag-icon" src="${getFlagUrl(jogo.time1)}">
+                            <span>${jogo.time1}</span>
+                        </div>
+                        <div class="game-card-score">
+                            <input type="number" pattern="[0-9]*" inputmode="numeric" class="mobile-score-input" style="width:32px; height:28px; font-size:0.85em;" id="grp_input_${index}_1" value="${savedScore1}">
+                            <input type="number" pattern="[0-9]*" inputmode="numeric" class="mobile-score-input" style="width:32px; height:28px; font-size:0.85em;" id="grp_input_${index}_2" value="${savedScore2}">
+                        </div>
+                        <div class="game-card-team right" style="font-size:0.75em;">
+                            <span>${jogo.time2}</span>
+                            <img class="flag-icon" src="${getFlagUrl(jogo.time2)}">
+                        </div>
+                    `;
+                    gamesContainer.appendChild(row);
+                }
             });
         }
 
         function saveMobileGroupScores() {
-            const localData = JSON.parse(localStorage.getItem('copaResultsMobile') || '{}');
-            
-            document.querySelectorAll('.group-sync-input').forEach(input => {
-                const idx = input.dataset.globalId;
-                const pos = input.dataset.pos;
-                if (input.value !== '') {
-                    localData[`game_${idx}_${pos}`] = input.value;
+            const grp = document.getElementById('groupMobileSelect').value;
+            jogosData.forEach((jogo, index) => {
+                if(jogo.grupo === grp) {
+                    const v1 = document.getElementById(`grp_input_${index}_1`).value;
+                    const v2 = document.getElementById(`grp_input_${index}_2`).value;
+                    localStorage.setItem(`g_${index}_t1`, v1);
+                    localStorage.setItem(`g_${index}_t2`, v2);
                 }
             });
-
-            localStorage.setItem('copaResultsMobile', JSON.stringify(localData));
-            showMobileToast('Palpites salvos com sucesso! ⚽');
+            renderMobileGames(); // Atualiza a aba principal de tabela global
+            showToast("Palpites do Grupo salvos com sucesso!");
         }
 
-        /* ========== MODAIS INTERATIVOS (ESTILO SHEET DO IOS) ========== */
+        // GERENCIADOR DE MODAIS (BOTÕES HOME)
         function triggerMobileModal(type) {
-            const titleEl = document.getElementById('mobileModalTitle');
-            const bodyEl = document.getElementById('mobileModalBody');
-            let content = '';
+            const title = document.getElementById('mobileModalTitle');
+            const body = document.getElementById('mobileModalBody');
+            body.innerHTML = '';
 
-            if (type === 'selecoes') {
-                titleEl.textContent = 'Seleções Competindo (48)';
-                content = '<div class="modal-grid-list">';
+            if(type === 'selecoes') {
+                title.innerText = "Lista de Seleções (48)";
+                const grid = document.createElement('div');
+                grid.className = 'modal-grid-list';
                 Object.keys(flagsRegistry).sort().forEach(name => {
-                    content += `
+                    grid.innerHTML += `
                         <div class="modal-list-item">
-                            <img src="https://flagcdn.com/w40/${flagsRegistry[name]}.png" class="flag-icon" alt="${name}">
+                            <img class="flag-icon" src="${getFlagUrl(name)}">
                             <span>${name}</span>
-                        </div>`;
+                        </div>
+                    `;
                 });
-                content += '</div>';
-            } 
-            else if (type === 'sedes') {
-                titleEl.textContent = 'Cidades-Sede e Capacidades';
-                content = `
-                    <div class="modal-block-item">
-                        <strong>🇺🇸 ESTADOS UNIDOS</strong>
-                        <p style="margin-top:4px; font-size:0.9em; color:#4a5568;">
-                            • N. York/N. Jersey: MetLife (82.500)<br>• Dallas: AT&T Stadium (80.000)<br>
-                            • Kansas City: Arrowhead (76.400)<br>• Houston: NRG Stadium (72.200)<br>
-                            • Atlanta: Mercedes-Benz (71.000)<br>• L. Angeles: SoFi Stadium (70.200)<br>
-                            • Filadélfia: Lincoln Field (69.100)<br>• Seattle: Lumen Field (69.000)<br>
-                            • S. Francisco: Levi's Stadium (68.500)<br>• Boston: Gillette Stadium (65.800)<br>
-                            • Miami: Hard Rock Stadium (64.700)
-                        </p>
-                    </div>
-                    <div class="modal-block-item" style="border-left-color:#06A77D;">
-                        <strong>🇲🇽 MÉXICO</strong>
-                        <p style="margin-top:4px; font-size:0.9em; color:#4a5568;">
-                            • Cidade do México: Estádio Azteca (87.523)<br>
-                            • Monterrey: Estádio BBVA (53.500)<br>
-                            • Guadalajara: Estádio Akron (48.071)
-                        </p>
-                    </div>
-                    <div class="modal-block-item" style="border-left-color:#F77F00;">
-                        <strong>🇨🇦 CANADÁ</strong>
-                        <p style="margin-top:4px; font-size:0.9em; color:#4a5568;">
-                            • Vancouver: BC Place (54.500)<br>
-                            • Toronto: BMO Field (30.000)
-                        </p>
-                    </div>
-                `;
-            } 
-            else if (type === 'paises') {
-                titleEl.textContent = 'Países Organizadores';
-                content = `
-                    <div class="modal-block-item">
-                        <strong>🌎 Organização Conjunta Tripla</strong>
-                        <p style="margin-top:5px; font-size:0.95em; color:#4a5568; line-height:1.4;">
-                            Pela primeira vez na história da FIFA, três países organizam o torneio de forma integrada. Os <strong>Estados Unidos</strong> concentrarão a maior parte dos jogos das fases decisivas. O <strong>México</strong> faz história ao ter o Estádio Azteca como palco pela terceira vez, e o <strong>Canadá</strong> sedia o torneio masculino de forma inédita.
-                        </p>
-                    </div>
+                body.appendChild(grid);
+            } else if (type === 'sedes') {
+                title.innerText = "Cidades-Sede e Estádios (16)";
+                const sedes = [
+                    "Cidade do México (Estádio Azteca)", "Guadalajara (Estádio Akron)", "Monterrey (Estádio BBVA)",
+                    "Vancouver (BC Place)", "Toronto (BMO Field)", "New York/New Jersey (MetLife Stadium)",
+                    "Los Angeles (SoFi Stadium)", "Dallas (AT&T Stadium)", "Kansas City (Arrowhead Stadium)",
+                    "Houston (NRG Stadium)", "Atlanta (Mercedes-Benz Stadium)", "Miami (Hard Rock Stadium)",
+                    "Philadelphia (Lincoln Financial Field)", "Seattle (Lumen Field)", "San Francisco (Levi's Stadium)", "Boston (Gillette Stadium)"
+                ];
+                sedes.forEach(s => {
+                    body.innerHTML += `<div class="modal-block-item">🏟️ <strong>${s.split(' (')[0]}</strong>${s.split(' (')[1].replace(')', '')}</div>`;
+                });
+            } else if (type === 'paises') {
+                title.innerText = "Detalhes dos Países Anfitriões";
+                body.innerHTML = `
+                    <div class="modal-block-item">🇨🇦 <strong>Canadá</strong> Sediando jogos em Toronto e Vancouver. Foco na expansão do esporte no país.</div>
+                    <div class="modal-block-item">🇺🇸 <strong>Estados Unidos</strong> Sede principal com a maior malha de estádios de grande porte e a grande final.</div>
+                    <div class="modal-block-item">🇲🇽 <strong>México</strong> Primeiro país a sediar 3 edições de Copa do Mundo na história. Estádio Azteca histórico.</div>
                 `;
             }
 
-            bodyEl.innerHTML = content;
             document.getElementById('mobileModalOverlay').style.display = 'flex';
         }
 
         function closeMobileModal(e) {
-            if (e === true || e.target === document.getElementById('mobileModalOverlay')) {
+            if(e === true || e.target.id === 'mobileModalOverlay') {
                 document.getElementById('mobileModalOverlay').style.display = 'none';
             }
         }
 
-        function showMobileToast(msg) {
-            const toast = document.getElementById('mobileToast');
-            toast.textContent = msg;
-            toast.style.opacity = '1';
-            setTimeout(() => { toast.style.opacity = '0'; }, 2000);
-        }
-
-        // Execução Inicial
-        renderMobileGamesList();
+        // EXECUÇÃO INICIAL
+        window.onload = function() {
+            renderMobileGames();
+            renderMobileGroupView();
+        };
     </script>
 </body>
 </html>
