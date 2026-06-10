@@ -76,7 +76,6 @@
             opacity: 0.85;
         }
 
-        /* Botão Dark Mode */
         .theme-toggle {
             position: absolute;
             top: 15px;
@@ -101,7 +100,7 @@
             margin: 0 auto;
         }
 
-        /* ========== NAVEGAÇÃO INTERNA (TABS ESTILO APP) ========== */
+        /* ========== TABS ========== */
         .tabs {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -122,7 +121,6 @@
             cursor: pointer;
             border-radius: 8px;
             text-align: center;
-            white-space: nowrap;
         }
 
         .tab-button.active {
@@ -131,14 +129,9 @@
             box-shadow: 0 2px 6px rgba(0,0,0,0.1);
         }
 
-        [data-theme="dark"] .tab-button.active {
-            color: #38bdf8;
-        }
+        [data-theme="dark"] .tab-button.active { color: #38bdf8; }
 
-        .tab-content {
-            display: none;
-        }
-
+        .tab-content { display: none; }
         .tab-content.active {
             display: block;
             animation: mobileFadeIn 0.25s ease-out;
@@ -149,7 +142,7 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* ========== GRID DASHBOARD (2 COLUNAS NO CELULAR) ========== */
+        /* ========== DASHBOARD GRID ========== */
         .dashboard-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -168,17 +161,10 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            position: relative;
-        }
-
-        .stat-card:active {
-            opacity: 0.8;
         }
 
         .stat-card.primary { border-top: 4px solid #1B4965; }
         .stat-card.accent { border-top: 4px solid #D62828; }
-        .stat-card.success { border-top: 4px solid #06A77D; }
-        .stat-card.warning { border-top: 4px solid #F77F00; }
 
         .stat-number {
             font-size: 1.8em;
@@ -187,26 +173,29 @@
             margin: 4px 0;
         }
         [data-theme="dark"] .stat-number { color: #f8fafc; }
-
         .stat-card.accent .stat-number { color: #D62828; }
-        .stat-card.success .stat-number { color: #06A77D; }
-        .stat-card.warning .stat-number { color: #F77F00; }
 
         .stat-label {
             font-size: 0.75em;
             color: var(--color-muted);
             text-transform: uppercase;
             font-weight: bold;
-            letter-spacing: 0.5px;
         }
 
-        .stat-hint {
-            font-size: 0.65em;
-            color: var(--color-hint);
-            margin-top: 2px;
+        /* ========== SECTION JOGOS DE HOJE ========== */
+        .today-section-title {
+            font-size: 0.9em;
+            font-weight: bold;
+            text-transform: uppercase;
+            color: #1B4965;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
         }
+        [data-theme="dark"] .today-section-title { color: #38bdf8; }
 
-        /* ========== PROGRESS BAR (GAMIFICAÇÃO) ========== */
+        /* ========== PROGRESS BAR ========== */
         .progress-section {
             background: var(--bg-card);
             padding: 15px;
@@ -225,7 +214,6 @@
             height: 12px;
             border-radius: 6px;
             overflow: hidden;
-            width: 100%;
         }
         .progress-bar-fill {
             background: #06A77D;
@@ -242,7 +230,6 @@
             box-shadow: 0 2px 8px rgba(0,0,0,0.05);
             margin-bottom: 15px;
         }
-
         .info-section h3 {
             color: #1B4965;
             font-size: 1em;
@@ -252,28 +239,7 @@
         }
         [data-theme="dark"] .info-section h3 { color: #38bdf8; }
 
-        .info-list {
-            list-style: none;
-        }
-
-        .info-list li {
-            padding: 10px;
-            background: var(--bg-item);
-            border-left: 3px solid #06A77D;
-            border-radius: 4px;
-            margin-bottom: 8px;
-            font-size: 0.85em;
-            line-height: 1.4;
-        }
-
-        .info-list li strong {
-            color: #1B4965;
-            display: block;
-            margin-bottom: 2px;
-        }
-        [data-theme="dark"] .info-list li strong { color: #38bdf8; }
-
-        /* ========== FILTROS E BUSCAS MOBILE ========== */
+        /* ========== FILTERS ========== */
         .filter-wrapper {
             background: var(--bg-card);
             padding: 12px;
@@ -284,30 +250,25 @@
             flex-direction: column;
             gap: 8px;
         }
-
-        .filter-wrapper input, 
-        .filter-wrapper select {
+        .filter-wrapper input {
             width: 100%;
             padding: 10px 12px;
             border: 1px solid var(--border-color);
             border-radius: 8px;
             font-size: 0.9em;
-            outline: none;
             background-color: var(--bg-body);
             color: var(--color-text);
+            outline: none;
         }
 
-        /* ========== SCROLL HORIZONTAL DE TAGS DE GRUPOS ========== */
+        /* ========== SCROLL HORIZONTAL DE TAGS ========== */
         .groups-scroll-container {
             display: flex;
             gap: 8px;
             overflow-x: auto;
-            padding: 4px 0 10px 0;
-            scrollbar-width: none; /* Oculta scrollbar no Firefox */
+            padding-bottom: 10px;
         }
-        .groups-scroll-container::-webkit-scrollbar {
-            display: none; /* Oculta scrollbar no Chrome/Safari */
-        }
+        .groups-scroll-container::-webkit-scrollbar { display: none; }
         .group-tag-btn {
             background: var(--bg-card);
             color: var(--color-text);
@@ -316,9 +277,7 @@
             border-radius: 20px;
             font-size: 0.85em;
             font-weight: bold;
-            cursor: pointer;
             white-space: nowrap;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
         }
         .group-tag-btn.active {
             background: #1B4965;
@@ -326,7 +285,7 @@
             border-color: #1B4965;
         }
 
-        /* ========== JOGOS CARD-STYLE (EVITA QUEBRA DE TABELAS) ========== */
+        /* ========== JOGOS CARD STYLE ========== */
         .game-card {
             background: var(--bg-card);
             border-radius: 12px;
@@ -335,12 +294,14 @@
             box-shadow: 0 2px 6px rgba(0,0,0,0.03);
             border-left: 4px solid var(--border-color);
         }
-
         .game-card.brasil-match {
             border-left-color: var(--border-brasil);
             background: var(--bg-brasil);
         }
-
+        .game-card.today-match-style {
+            border-left-color: #F77F00;
+            background: rgba(247, 127, 0, 0.02);
+        }
         .game-card-meta {
             display: flex;
             justify-content: space-between;
@@ -350,6 +311,14 @@
             border-bottom: 1px dashed var(--border-light);
             padding-bottom: 4px;
         }
+        .status-badge {
+            font-weight: bold;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.85em;
+        }
+        .status-badge.today { color: #F77F00; }
+        .status-badge.normal { color: var(--color-muted); }
 
         .game-card-row {
             display: flex;
@@ -357,7 +326,6 @@
             justify-content: space-between;
             gap: 10px;
         }
-
         .game-card-team {
             flex: 1;
             display: flex;
@@ -366,17 +334,8 @@
             font-size: 0.85em;
             font-weight: 600;
         }
-
-        .game-card-team.right {
-            justify-content: flex-end;
-            text-align: right;
-        }
-
-        .game-card-score {
-            display: flex;
-            align-items: center;
-            gap: 4px;
-        }
+        .game-card-team.right { justify-content: flex-end; text-align: right; }
+        .game-card-score { display: flex; align-items: center; gap: 4px; }
 
         .mobile-score-input {
             width: 38px;
@@ -391,19 +350,7 @@
             outline: none;
         }
 
-        .mobile-score-input:focus {
-            border-color: #1B4965;
-            background: var(--bg-item);
-        }
-
-        .game-card-venue {
-            font-size: 0.7em;
-            color: var(--color-hint);
-            text-align: center;
-            margin-top: 6px;
-        }
-
-        /* ========== CONTAINER DE GRUPOS INTERATIVOS & TABELA DE CLASSIFICAÇÃO ========== */
+        /* ========== TABLES ========== */
         .mobile-group-box {
             background: var(--bg-card);
             border-radius: 12px;
@@ -411,7 +358,6 @@
             margin-bottom: 15px;
             overflow: hidden;
         }
-
         .mobile-group-header {
             background: #1B4965;
             color: white;
@@ -419,7 +365,6 @@
             font-size: 0.95em;
             font-weight: bold;
         }
-
         .table-header-row, .table-team-row {
             display: grid;
             grid-template-columns: 2fr repeat(4, 1fr);
@@ -428,38 +373,13 @@
             font-size: 0.8em;
             padding: 8px 10px;
         }
-        .table-header-row {
-            background: var(--bg-tabs);
-            font-weight: bold;
-            color: var(--color-text);
-        }
-        .table-team-row {
-            border-bottom: 1px solid var(--border-light);
-        }
-        .table-team-name-col {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            text-align: left;
-            font-weight: 600;
-        }
+        .table-header-row { background: var(--bg-tabs); font-weight: bold; color: var(--color-text); }
+        .table-team-row { border-bottom: 1px solid var(--border-light); }
+        .table-team-name-col { display: flex; align-items: center; gap: 6px; text-align: left; font-weight: 600; }
 
-        .flag-icon {
-            width: 22px;
-            height: 15px;
-            object-fit: cover;
-            border-radius: 2px;
-            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
-        }
+        .flag-icon { width: 22px; height: 15px; object-fit: cover; border-radius: 2px; }
 
-        .flag-icon-large {
-            width: 32px;
-            height: 22px;
-            object-fit: cover;
-            border-radius: 3px;
-        }
-
-        /* ========== MODAIS INTEGRADOS (ESTILO SHEET ABAIXO) ========== */
+        /* ========== OVERLAYS & NOTIFICATIONS ========== */
         .modal-overlay {
             display: none;
             position: fixed;
@@ -469,7 +389,6 @@
             justify-content: flex-end;
             flex-direction: column;
         }
-
         .modal {
             background: var(--bg-card);
             border-top-left-radius: 20px;
@@ -477,15 +396,7 @@
             padding: 20px;
             max-height: 80vh;
             overflow-y: auto;
-            box-shadow: 0 -4px 20px rgba(0,0,0,0.15);
-            animation: slideUpMobile 0.25s ease-out;
         }
-
-        @keyframes slideUpMobile {
-            from { transform: translateY(100%); }
-            to { transform: translateY(0); }
-        }
-
         .modal-header {
             display: flex;
             justify-content: space-between;
@@ -494,115 +405,20 @@
             padding-bottom: 10px;
             margin-bottom: 15px;
         }
+        .modal-close-btn { font-size: 1.5em; border: none; background: transparent; color: var(--color-hint); }
+        .modal-grid-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+        .modal-list-item { display: flex; align-items: center; gap: 8px; padding: 10px; background: var(--bg-item); border-radius: 8px; font-size: 0.8em; font-weight: 600; }
 
-        .modal-header h3 {
-            font-size: 1.1em;
-            color: #1B4965;
-        }
-        [data-theme="dark"] .modal-header h3 { color: #38bdf8; }
-
-        .modal-close-btn {
-            font-size: 1.5em;
-            font-weight: bold;
-            color: var(--color-hint);
-            border: none;
-            background: transparent;
-            cursor: pointer;
-            padding: 0 5px;
-        }
-
-        .modal-grid-list {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
-        }
-
-        .modal-list-item {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 10px;
-            background: var(--bg-item);
-            border-radius: 8px;
-            font-size: 0.8em;
-            font-weight: 600;
-        }
-
-        .modal-block-item {
-            background: var(--bg-item);
-            padding: 12px;
-            border-radius: 8px;
-            margin-bottom: 10px;
-            border-left: 3px solid #1B4965;
-            font-size: 0.8em;
-            line-height: 1.4;
-        }
-
-        /* ========== FOOTER & BOTÕES DE AÇÃO ========== */
-        footer {
-            background: #0f2c42;
-            color: #a0aec0;
-            text-align: center;
-            padding: 15px;
-            font-size: 0.7em;
-            position: fixed;
-            bottom: 0; left: 0; width: 100%;
-            z-index: 1000;
-            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
-        }
-
-        .action-buttons-group {
-            display: flex;
-            gap: 8px;
-            margin-top: 10px;
-        }
-
-        .save-action-btn {
-            background: #06A77D;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            padding: 12px;
-            font-weight: bold;
-            font-size: 0.9em;
-            flex: 2;
-            cursor: pointer;
-            box-shadow: 0 2px 6px rgba(6,167,125,0.3);
-        }
-
+        .share-btn-container { padding: 0 5px; margin-bottom: 15px; }
         .share-action-btn {
-            background: #25D366;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            padding: 12px;
-            font-weight: bold;
-            font-size: 0.9em;
-            flex: 1;
-            cursor: pointer;
-            box-shadow: 0 2px 6px rgba(37,211,102,0.3);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 4px;
+            background: #25D366; color: white; border: none; border-radius: 8px; width: 100%;
+            padding: 12px; font-weight: bold; font-size: 0.9em; cursor: pointer;
+            display: flex; align-items: center; justify-content: center; gap: 6px;
         }
 
-        .toast {
-            position: fixed;
-            bottom: 80px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: #06A77D;
-            color: white;
-            padding: 10px 20px;
-            border-radius: 20px;
-            font-size: 0.8em;
-            font-weight: bold;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-            z-index: 3000;
-            pointer-events: none;
-            opacity: 0;
-            transition: opacity 0.2s ease;
+        footer {
+            background: #0f2c42; color: #a0aec0; text-align: center; padding: 15px; font-size: 0.7em;
+            position: fixed; bottom: 0; left: 0; width: 100%; z-index: 1000;
         }
     </style>
 </head>
@@ -610,8 +426,8 @@
 
     <header>
         <h1>⚽ COPA DO MUNDO 2026</h1>
-        <p>Painel Interativo Otimizado para Celular</p>
-        <button class="theme-toggle" onclick="toggleMobileTheme()" title="Alternar Tema">🌓</button>
+        <p>Painel de Resultados com Sincronização Automática</p>
+        <button class="theme-toggle" onclick="toggleMobileTheme()">🌓</button>
     </header>
 
     <div class="container">
@@ -622,33 +438,31 @@
         </div>
 
         <div id="tab-dashboard" class="tab-content active">
+            
+            <div id="todayGamesSection" style="display:none; margin-bottom: 20px;">
+                <div class="today-section-title">
+                    <span>📅 Partidas Programadas para Hoje</span>
+                </div>
+                <div id="todayGamesContainer"></div>
+            </div>
+
             <div class="dashboard-grid">
                 <div class="stat-card primary" onclick="triggerMobileModal('selecoes')">
                     <span class="stat-label">Seleções</span>
                     <span class="stat-number">48</span>
-                    <span class="stat-hint">Ver lista 🔍</span>
+                    <span style="font-size:0.65em; color:var(--color-hint)">Ver lista 🔍</span>
                 </div>
                 <div class="stat-card accent" onclick="switchMobileTab(null, 'tab-jogos')">
-                    <span class="stat-label">Partidas Total</span>
+                    <span class="stat-label">Partidas</span>
                     <span class="stat-number">104</span>
-                    <span class="stat-hint">Ir para tabela 📋</span>
-                </div>
-                <div class="stat-card success" onclick="triggerMobileModal('sedes')">
-                    <span class="stat-label">Cidades-Sede</span>
-                    <span class="stat-number">16</span>
-                    <span class="stat-hint">Ver estádios 🏟️</span>
-                </div>
-                <div class="stat-card warning" id="statCardEmpates">
-                    <span class="stat-label">Seus Empates</span>
-                    <span class="stat-number" id="statsEmpatesNum">0</span>
-                    <span class="stat-hint">Previsões de igualdade</span>
+                    <span style="font-size:0.65em; color:var(--color-hint)">Lista Completa 📋</span>
                 </div>
             </div>
 
             <div class="progress-section">
                 <div style="display:flex; justify-content:space-between; margin-bottom: 5px;">
-                    <h4>Seus Palpites da 1ª Rodada</h4>
-                    <span id="progressPercentText" style="font-size:0.8em; font-weight:bold; color:#06A77D;">0/24 (0%)</span>
+                    <h4>Seus Resultados Inseridos</h4>
+                    <span id="progressPercentText" style="font-size:0.8em; font-weight:bold; color:#06A77D;">0/24</span>
                 </div>
                 <div class="progress-bar-bg">
                     <div class="progress-bar-fill" id="progressBarFill"></div>
@@ -656,32 +470,25 @@
             </div>
 
             <div class="info-section">
-                <h3>Informações Gerais</h3>
-                <ul class="info-list">
-                    <li><strong>📅 Período Oficial</strong>Abertura em 11 de junho de 2026.</li>
-                    <li><strong>🏠 Regulamento Regulamentar</strong>12 grupos com 4 seleções. Avançam os dois melhores de cada chave mais os 8 melhores terceiros colocados gerais.</li>
-                    <li><strong>🇧🇷 Grupo do Brasil</strong>Alocado no Grupo C competindo diretamente com Marrocos, Haiti e Escócia.</li>
-                </ul>
+                <h3>Cronograma do Brasil (Grupo C)</h3>
+                <div id="brasilStatusBox" style="font-size:0.85em; padding:10px; background:var(--bg-item); border-left:3px solid #06A77D; border-radius:4px;">
+                    Carregando dados...
+                </div>
             </div>
         </div>
 
         <div id="tab-jogos" class="tab-content">
             <div class="filter-wrapper">
-                <input type="text" id="searchMobileTeam" placeholder="Buscar seleção (ex: Brasil)..." onkeyup="filterMobileGames()">
-                <select id="filterMobileRodada" onchange="filterMobileGames()">
-                    <option value="">Todas as rodadas</option>
-                    <option value="1ª">1ª Rodada</option>
-                </select>
+                <input type="text" id="searchMobileTeam" placeholder="Filtrar por seleção..." onkeyup="renderMobileGamesList()">
             </div>
             <div id="mobileGamesContainer"></div>
         </div>
 
         <div id="tab-grupos" class="tab-content">
-            <div class="groups-scroll-container" id="groupsTagsScroll">
-                </div>
+            <div class="groups-scroll-container" id="groupsTagsScroll"></div>
 
             <div class="mobile-group-box">
-                <div class="mobile-group-header" id="mobileGroupClassTitle">Classificação Real-Time</div>
+                <div class="mobile-group-header" id="mobileGroupClassTitle">Classificação</div>
                 <div class="table-header-row">
                     <div style="text-align:left;">Seleção</div>
                     <div>P</div>
@@ -689,18 +496,16 @@
                     <div>V</div>
                     <div>SG</div>
                 </div>
-                <div id="mobileGroupClassBody">
-                    </div>
+                <div id="mobileGroupClassBody"></div>
             </div>
 
             <div class="mobile-group-box">
-                <div class="mobile-group-header">Jogos do Grupo</div>
-                <div class="mobile-group-body" id="mobileGroupGamesContainer" style="padding: 8px;"></div>
+                <div class="mobile-group-header">Partidas do Grupo Chaveado</div>
+                <div id="mobileGroupGamesContainer" style="padding: 12px 8px 4px 8px;"></div>
             </div>
 
-            <div class="action-buttons-group">
-                <button class="save-action-btn" onclick="saveMobileGroupScores()">💾 Salvar Palpites</button>
-                <button class="share-action-btn" onclick="shareGroupPredictions()">🟢 Partilhar</button>
+            <div class="share-btn-container">
+                <button class="share-action-btn" onclick="shareGroupPredictions()">🟢 Partilhar Resultados no WhatsApp</button>
             </div>
         </div>
     </div>
@@ -715,28 +520,26 @@
         </div>
     </div>
 
-    <div id="mobileToast" class="toast"></div>
-
     <footer>
-        Horários oficiais em Brasília (BRT) | Foco Mobile © 2026
+        Painel de Gestão Direta | Horários Oficiais BRT
     </footer>
 
     <script>
-        let currentSelectedGroup = "C"; // Padrão focado no Brasil
+        let currentSelectedGroup = "C";
 
         const flagsRegistry = {
             "México": "mx", "África do Sul": "za", "Coreia do Sul": "kr", "República Tcheca": "cz",
-            "Canadá": "ca", "Bósnia": "ba", "EUA": "us", "Estados Unidos": "us", "Paraguai": "py",
-            "Austrália": "au", "Turquia": "tr", "Catar": "qa", "Suíça": "ch",
-            "Brasil": "br", "Marrocos": "ma", "Haiti": "ht", "Escócia": "gb-sct",
-            "Alemanha": "de", "Curaçao": "cw", "Holanda": "nl", "Japão": "jp",
-            "Costa do Marfim": "ci", "Equador": "ec", "Tunísia": "tn", "Suécia": "se",
-            "Espanha": "es", "Cabo Verde": "cv", "Bélgica": "be", "Egito": "eg",
-            "Arábia Saudita": "sa", "Uruguai": "uy", "Irã": "ir", "Nova Zelândia": "nz",
-            "Argentina": "ar", "Argélia": "dz", "França": "fr", "Senegal": "sn",
-            "Iraque": "iq", "Noruega": "no", "Áustria": "at", "Jordânia": "jo",
-            "Portugal": "pt", "RD Congo": "cd", "Inglaterra": "gb-eng", "Croácia": "hr",
-            "Gana": "gh", "Panamá": "pa", "Uzbequistão": "uz", "Colômbia": "co"
+            "Canadá": "ca", "Bósnia": "ba", "Estados Unidos": "us", "Paraguai": "py",
+            "Catar": "qa", "Suíça": "ch", "Brasil": "br", "Marrocos": "ma",
+            "Haiti": "ht", "Escócia": "gb-sct", "Austrália": "au", "Turquia": "tr",
+            "Alemanha": "de", "Curaçao": "cw", "Costa do Marfim": "ci", "Equador": "ec",
+            "Holanda": "nl", "Japão": "jp", "Suécia": "se", "Tunísia": "tn",
+            "Bélgica": "be", "Egito": "eg", "Irã": "ir", "Nova Zelândia": "nz",
+            "Espanha": "es", "Cabo Verde": "cv", "Arábia Saudita": "sa", "Uruguai": "uy",
+            "França": "fr", "Senegal": "sn", "Iraque": "iq", "Noruega": "no",
+            "Argentina": "ar", "Argélia": "dz", "Áustria": "at", "Jordânia": "jo",
+            "Portugal": "pt", "RD Congo": "cd", "Uzbequistão": "uz", "Colômbia": "co",
+            "Inglaterra": "gb-eng", "Croácia": "hr", "Gana": "gh", "Panamá": "pa"
         };
 
         const gruposData = {
@@ -755,30 +558,30 @@
         };
 
         const jogosData = [
-            {data: "11/06", grupo: "A", hora: "16:00", time1: "México", time2: "África do Sul", local: "Azteca", rodada: "1ª"},
-            {data: "11/06", grupo: "A", hora: "23:00", time1: "Coreia do Sul", time2: "República Tcheca", local: "Akron", rodada: "1ª"},
-            {data: "12/06", grupo: "B", hora: "16:00", time1: "Canadá", time2: "Bósnia", local: "Toronto Field", rodada: "1ª"},
-            {data: "13/06", grupo: "B", hora: "16:00", time1: "Catar", time2: "Suíça", local: "Santa Clara", rodada: "1ª"},
-            {data: "13/06", grupo: "C", hora: "19:00", time1: "Brasil", time2: "Marrocos", local: "Nova Jersey", rodada: "1ª", brasil: true},
-            {data: "13/06", grupo: "C", hora: "22:00", time1: "Haiti", time2: "Escócia", local: "Boston", rodada: "1ª"},
-            {data: "12/06", grupo: "D", hora: "22:00", time1: "Estados Unidos", time2: "Paraguai", local: "Los Angeles", rodada: "1ª"},
-            {data: "14/06", grupo: "D", hora: "01:00", time1: "Austrália", time2: "Turquia", local: "Vancouver Place", rodada: "1ª"},
-            {data: "14/06", grupo: "E", hora: "14:00", time1: "Alemanha", time2: "Curaçao", local: "Houston", rodada: "1ª"},
-            {data: "14/06", grupo: "E", hora: "20:00", time1: "Costa do Marfim", time2: "Equador", local: "Filadélfia", rodada: "1ª"},
-            {data: "14/06", grupo: "F", hora: "17:00", time1: "Holanda", time2: "Japão", local: "Dallas", rodada: "1ª"},
-            {data: "14/06", grupo: "F", hora: "23:00", time1: "Suécia", time2: "Tunísia", local: "El Gigante de Acero", rodada: "1ª"},
-            {data: "15/06", grupo: "G", hora: "16:00", time1: "Bélgica", time2: "Egito", local: "Seattle Field", rodada: "1ª"},
-            {data: "15/06", grupo: "G", hora: "22:00", time1: "Irã", time2: "Nova Zelândia", local: "Los Angeles", rodada: "1ª"},
-            {data: "15/06", grupo: "H", hora: "13:00", time1: "Espanha", time2: "Cabo Verde", local: "Atlanta", rodada: "1ª"},
-            {data: "15/06", grupo: "H", hora: "19:00", time1: "Arábia Saudita", time2: "Uruguai", local: "Miami", rodada: "1ª"},
-            {data: "16/06", grupo: "I", hora: "16:00", time1: "França", time2: "Senegal", local: "Nova Jersey", rodada: "1ª"},
-            {data: "16/06", grupo: "I", hora: "19:00", time1: "Iraque", time2: "Noruega", local: "Boston", rodada: "1ª"},
-            {data: "16/06", grupo: "J", hora: "22:00", time1: "Argentina", time2: "Argélia", local: "Kansas City", rodada: "1ª"},
-            {data: "17/06", grupo: "J", hora: "01:00", time1: "Áustria", time2: "Jordânia", local: "Santa Clara", rodada: "1ª"},
-            {data: "17/06", grupo: "K", hora: "14:00", time1: "Portugal", time2: "RD Congo", local: "Houston", rodada: "1ª"},
-            {data: "17/06", grupo: "K", hora: "23:00", time1: "Uzbequistão", time2: "Colômbia", local: "Azteca", rodada: "1ª"},
-            {data: "17/06", grupo: "L", hora: "17:00", time1: "Inglaterra", time2: "Croácia", local: "Dallas", rodada: "1ª"},
-            {data: "17/06", grupo: "L", hora: "20:00", time1: "Gana", time2: "Panamá", local: "Toronto Field", rodada: "1ª"}
+            {data: "11/06", grupo: "A", hora: "16:00", time1: "México", time2: "África do Sul", local: "Azteca"},
+            {data: "11/06", grupo: "A", hora: "23:00", time1: "Coreia do Sul", time2: "República Tcheca", local: "Akron"},
+            {data: "12/06", grupo: "B", hora: "16:00", time1: "Canadá", time2: "Bósnia", local: "Toronto Field"},
+            {data: "13/06", grupo: "B", hora: "16:00", time1: "Catar", time2: "Suíça", local: "Santa Clara"},
+            {data: "13/06", grupo: "C", hora: "19:00", time1: "Brasil", time2: "Marrocos", local: "Nova Jersey", brasil: true},
+            {data: "13/06", grupo: "C", hora: "22:00", time1: "Haiti", time2: "Escócia", local: "Boston"},
+            {data: "12/06", grupo: "D", hora: "22:00", time1: "Estados Unidos", time2: "Paraguai", local: "Los Angeles"},
+            {data: "14/06", grupo: "D", hora: "01:00", time1: "Austrália", time2: "Turquia", local: "Vancouver Place"},
+            {data: "14/06", grupo: "E", hora: "14:00", time1: "Alemanha", time2: "Curaçao", local: "Houston"},
+            {data: "14/06", grupo: "E", hora: "20:00", time1: "Costa do Marfim", time2: "Equador", local: "Filadélfia"},
+            {data: "14/06", grupo: "F", hora: "17:00", time1: "Holanda", time2: "Japão", local: "Dallas"},
+            {data: "14/06", grupo: "F", hora: "23:00", time1: "Suécia", time2: "Tunísia", local: "El Gigante de Acero"},
+            {data: "15/06", grupo: "G", hora: "16:00", time1: "Bélgica", time2: "Egito", local: "Seattle Field"},
+            {data: "15/06", grupo: "G", hora: "22:00", time1: "Irã", time2: "Nova Zelândia", local: "Los Angeles"},
+            {data: "15/06", grupo: "H", hora: "13:00", time1: "Espanha", time2: "Cabo Verde", local: "Atlanta"},
+            {data: "15/06", grupo: "H", hora: "19:00", time1: "Arábia Saudita", time2: "Uruguai", local: "Miami"},
+            {data: "16/06", grupo: "I", hora: "16:00", time1: "França", time2: "Senegal", local: "Nova Jersey"},
+            {data: "16/06", grupo: "I", hora: "19:00", time1: "Iraque", time2: "Noruega", local: "Boston"},
+            {data: "16/06", grupo: "J", hora: "22:00", time1: "Argentina", time2: "Argélia", local: "Kansas City"},
+            {data: "17/06", grupo: "J", hora: "01:00", time1: "Áustria", time2: "Jordânia", local: "Santa Clara"},
+            {data: "17/06", grupo: "K", hora: "14:00", time1: "Portugal", time2: "RD Congo", local: "Houston"},
+            {data: "17/06", grupo: "K", hora: "23:00", time1: "Uzbequistão", time2: "Colômbia", local: "Azteca"},
+            {data: "17/06", grupo: "L", hora: "17:00", time1: "Inglaterra", time2: "Croácia", local: "Dallas"},
+            {data: "17/06", grupo: "L", hora: "20:00", time1: "Gana", time2: "Panamá", local: "Toronto Field"}
         ];
 
         function getFlagImgHTML(teamName) {
@@ -786,58 +589,35 @@
             return `<img src="https://flagcdn.com/w40/${iso}.png" class="flag-icon" alt="${teamName}">`;
         }
 
-        /* ========== TEMA DARK MODE NATIVO ========== */
         function toggleMobileTheme() {
-            const currentTheme = document.body.getAttribute('data-theme');
-            const targetTheme = currentTheme === 'dark' ? 'light' : 'dark';
-            document.body.setAttribute('data-theme', targetTheme);
-            localStorage.setItem('copaThemeMobile', targetTheme);
+            const target = document.body.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+            document.body.setAttribute('data-theme', target);
+            localStorage.setItem('copaThemeMobile', target);
         }
 
-        function loadSavedTheme() {
-            const savedTheme = localStorage.getItem('copaThemeMobile') || 'light';
-            document.body.setAttribute('data-theme', savedTheme);
+        function isMatchToday(matchDateStr) {
+            const now = new Date();
+            const todayStr = `${String(now.getDate()).padStart(2,'0')}/${String(now.getMonth()+1).padStart(2,'0')}`;
+            return matchDateStr === todayStr;
         }
 
-        /* ========== MÓDULO DE GAMIFICAÇÃO & ESTATÍSTICAS (HOME) ========== */
-        function updateDashboardStats() {
+        /* ========== MANIPULAÇÃO DE DADOS E SINCRONIZAÇÃO EM TEMPO REAL ========== */
+        function saveInputValueDirectly(index, pos, val) {
             const localData = JSON.parse(localStorage.getItem('copaResultsMobile') || '{}');
-            let totalFilled = 0;
-            let totalEmpates = 0;
-
-            jogosData.forEach((_, index) => {
-                const s1 = localData[`game_${index}_1`];
-                const s2 = localData[`game_${index}_2`];
-
-                if (s1 !== undefined && s2 !== undefined && s1 !== "" && s2 !== "") {
-                    totalFilled++;
-                    if (parseInt(s1) === parseInt(s2)) {
-                        totalEmpates++;
-                    }
-                }
-            });
-
-            // Atualiza percentual e barra de preenchimento
-            const pct = Math.round((totalFilled / jogosData.length) * 100) || 0;
-            document.getElementById('progressBarFill').style.width = `${pct}%`;
-            document.getElementById('progressPercentText').textContent = `${totalFilled}/${jogosData.length} (${pct}%)`;
-
-            // Atualiza card de empates
-            document.getElementById('statsEmpatesNum').textContent = totalEmpates;
+            localData[`game_${index}_${pos}`] = val;
+            localStorage.setItem('copaResultsMobile', JSON.stringify(localData));
+            
+            // Atualiza métricas globais sem recarregar ecrã
+            updateDashboardStats();
         }
 
-        /* ========== MÓDULO DE CÁLCULO DE CLASSIFICAÇÃO AUTOMÁTICA ========== */
         function calculateGroupStandings(groupLetter) {
             const localData = JSON.parse(localStorage.getItem('copaResultsMobile') || '{}');
             const groupTeams = gruposData[groupLetter];
-            
-            // Inicializa dados das equipas
             let standings = {};
-            groupTeams.forEach(team => {
-                standings[team] = { name: team, pontos: 0, jogos: 0, vitorias: 0, sg: 0 };
-            });
+            
+            groupTeams.forEach(t => standings[t] = { name: t, pontos: 0, jogos: 0, vitorias: 0, sg: 0 });
 
-            // Processa jogos do grupo específico
             jogosData.forEach((jogo, index) => {
                 if (jogo.grupo !== groupLetter) return;
 
@@ -853,149 +633,154 @@
                     standings[jogo.time1].sg += (s1 - s2);
                     standings[jogo.time2].sg += (s2 - s1);
 
-                    if (s1 > s2) {
-                        standings[jogo.time1].pontos += 3;
-                        standings[jogo.time1].vitorias += 1;
-                    } else if (s2 > s1) {
-                        standings[jogo.time2].pontos += 3;
-                        standings[jogo.time2].vitorias += 1;
-                    } else {
-                        standings[jogo.time1].pontos += 1;
-                        standings[jogo.time2].pontos += 1;
-                    }
+                    if (s1 > s2) { standings[jogo.time1].pontos += 3; standings[jogo.time1].vitorias++; }
+                    else if (s2 > s1) { standings[jogo.time2].pontos += 3; standings[jogo.time2].vitorias++; }
+                    else { standings[jogo.time1].pontos++; standings[jogo.time2].pontos++; }
                 }
             });
 
-            // Converte em array e ordena por Pontos, Vitórias e Saldo de Golos
-            return Object.values(standings).sort((a, b) => {
-                if (b.pontos !== a.pontos) return b.pontos - a.pontos;
-                if (b.vitorias !== a.vitorias) return b.vitorias - a.vitorias;
-                return b.sg - a.sg;
+            return Object.values(standings).sort((a,b) => b.pontos - a.pontos || b.vitorias - a.vitorias || b.sg - a.sg);
+        }
+
+        /* ========== VIEW DA HOME (ABA 1) ========== */
+        function updateDashboardStats() {
+            const localData = JSON.parse(localStorage.getItem('copaResultsMobile') || '{}');
+            let totalFilled = 0;
+
+            jogosData.forEach((_, index) => {
+                const s1 = localData[`game_${index}_1`];
+                const s2 = localData[`game_${index}_2`];
+                if (s1 !== undefined && s2 !== undefined && s1 !== "" && s2 !== "") totalFilled++;
             });
+
+            const pct = Math.round((totalFilled / jogosData.length) * 100) || 0;
+            document.getElementById('progressBarFill').style.width = `${pct}%`;
+            document.getElementById('progressPercentText').textContent = `${totalFilled}/${jogosData.length} (${pct}%)`;
+
+            renderTodayMatchesSection();
+            renderBrasilStatusCard();
         }
 
-        /* ========== GERENCIAMENTO DE ABAS ========== */
-        function switchMobileTab(event, tabId) {
-            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
-            document.querySelectorAll('.tab-button').forEach(el => el.classList.remove('active'));
-            
-            document.getElementById(tabId).classList.add('active');
-            
-            if (event) {
-                event.target.classList.add('active');
-            } else {
-                document.querySelectorAll('.tab-button').forEach(btn => {
-                    if (btn.textContent.includes('Tabela') && tabId === 'tab-jogos') btn.classList.add('active');
-                });
-            }
-
-            if (tabId === 'tab-dashboard') updateDashboardStats();
-            if (tabId === 'tab-jogos') renderMobileGamesList();
-            if (tabId === 'tab-grupos') {
-                buildGroupsHorizontalTags();
-                renderMobileGroupView();
-            }
-        }
-
-        /* ========== ABA 2: CONSTRUÇÃO DOS CARDS DE JOGOS ========== */
-        function renderMobileGamesList() {
-            const container = document.getElementById('mobileGamesContainer');
+        function renderTodayMatchesSection() {
+            const container = document.getElementById('todayGamesContainer');
             container.innerHTML = '';
             const localData = JSON.parse(localStorage.getItem('copaResultsMobile') || '{}');
+            
+            const hojeJogos = jogosData.filter(j => isMatchToday(j.data));
 
-            jogosData.forEach((jogo, index) => {
+            if (hojeJogos.length === 0) {
+                document.getElementById('todayGamesSection').style.display = 'none';
+                return;
+            }
+
+            document.getElementById('todayGamesSection').style.display = 'block';
+
+            hojeJogos.forEach(jogo => {
+                const globalIndex = jogosData.indexOf(jogo);
+                const s1 = localData[`game_${globalIndex}_1`] || '';
+                const s2 = localData[`game_${globalIndex}_2`] || '';
+
                 const card = document.createElement('div');
-                card.className = `game-card ${jogo.brasil ? 'brasil-match' : ''}`;
-                card.dataset.teamSearch = `${jogo.time1} ${jogo.time2}`.toLowerCase();
-                card.dataset.rodadaNum = jogo.rodada;
-
-                const score1 = localData[`game_${index}_1`] || '';
-                const score2 = localData[`game_${index}_2`] || '';
-
+                card.className = `game-card today-match-style`;
                 card.innerHTML = `
                     <div class="game-card-meta">
-                        <span>Grupo ${jogo.grupo} — ${jogo.rodada} Rodada</span>
-                        <span>${jogo.data} às ${jogo.hora}</span>
+                        <span style="font-weight:bold;">GRUPO ${jogo.grupo} — HOJE</span>
+                        <span>Horário: ${jogo.hora}</span>
                     </div>
                     <div class="game-card-row">
-                        <div class="game-card-team">
-                            ${getFlagImgHTML(jogo.time1)}
-                            <span>${jogo.time1}</span>
-                        </div>
+                        <div class="game-card-team">${getFlagImgHTML(jogo.time1)} <span>${jogo.time1}</span></div>
                         <div class="game-card-score">
-                            <input type="number" class="mobile-score-input" value="${score1}" data-game-idx="${index}" data-score-pos="1" oninput="saveMobileGameInput(this)">
-                            <span style="color:var(--color-hint);font-weight:bold;">:</span>
-                            <input type="number" class="mobile-score-input" value="${score2}" data-game-idx="${index}" data-score-pos="2" oninput="saveMobileGameInput(this)">
+                            <input type="number" class="mobile-score-input" value="${s1}" oninput="saveInputValueDirectly(${globalIndex}, 1, this.value)">
+                            <span>:</span>
+                            <input type="number" class="mobile-score-input" value="${s2}" oninput="saveInputValueDirectly(${globalIndex}, 2, this.value)">
                         </div>
-                        <div class="game-card-team right">
-                            <span>${jogo.time2}</span>
-                            ${getFlagImgHTML(jogo.time2)}
-                        </div>
+                        <div class="game-card-team right"><span>${jogo.time2}</span> ${getFlagImgHTML(jogo.time2)}</div>
                     </div>
-                    <div class="game-card-venue">🏟️ ${jogo.local}</div>
                 `;
                 container.appendChild(card);
             });
         }
 
-        function filterMobileGames() {
-            const search = document.getElementById('searchMobileTeam').value.toLowerCase();
-            const rodada = document.getElementById('filterMobileRodada').value;
-            const cards = document.querySelectorAll('#mobileGamesContainer .game-card');
+        function renderBrasilStatusCard() {
+            const box = document.getElementById('brasilStatusBox');
+            const brMatch = jogosData.find(j => j.brasil);
+            const globalIndex = jogosData.indexOf(brMatch);
+            const localData = JSON.parse(localStorage.getItem('copaResultsMobile') || '{}');
+            
+            const s1 = localData[`game_${globalIndex}_1`];
+            const s2 = localData[`game_${globalIndex}_2`];
 
-            cards.forEach(card => {
-                const matchesSearch = !search || card.dataset.teamSearch.includes(search);
-                const matchesRodada = !rodada || card.dataset.rodadaNum === rodada;
-                card.style.display = (matchesSearch && matchesRodada) ? 'block' : 'none';
+            if (s1 !== undefined && s2 !== undefined && s1 !== "" && s2 !== "") {
+                box.innerHTML = `<strong>Resultado Registrado:</strong> Brasil ${s1} x ${s2} ${brMatch.time2}<br><span style="font-size:0.8em; color:#06A77D;">Modificações refletidas automaticamente no Grupo C.</span>`;
+            } else {
+                box.innerHTML = `<strong>Próximo Confronto:</strong> Brasil × ${brMatch.time2}<br><span style="font-size:0.85em; color:var(--color-muted);">Agendado para ${brMatch.data} às ${brMatch.hora} (Estádio: ${brMatch.local})</span>`;
+            }
+        }
+
+        /* ========== LISTA GERAL DE JOGOS (ABA 2) ========== */
+        function renderMobileGamesList() {
+            const container = document.getElementById('mobileGamesContainer');
+            container.innerHTML = '';
+            const search = document.getElementById('searchMobileTeam').value.toLowerCase();
+            const localData = JSON.parse(localStorage.getItem('copaResultsMobile') || '{}');
+
+            jogosData.forEach((jogo, index) => {
+                if (search && !jogo.time1.toLowerCase().includes(search) && !jogo.time2.toLowerCase().includes(search)) return;
+
+                const s1 = localData[`game_${index}_1`] || '';
+                const s2 = localData[`game_${index}_2`] || '';
+                const isToday = isMatchToday(jogo.data);
+
+                const card = document.createElement('div');
+                card.className = `game-card ${jogo.brasil ? 'brasil-match' : ''} ${isToday ? 'today-match-style' : ''}`;
+
+                card.innerHTML = `
+                    <div class="game-card-meta">
+                        <span>Grupo ${jogo.grupo}</span>
+                        <span class="status-badge ${isToday ? 'today' : 'normal'}">${isToday ? 'HOJE' : jogo.data + ' às ' + jogo.hora}</span>
+                    </div>
+                    <div class="game-card-row">
+                        <div class="game-card-team">${getFlagImgHTML(jogo.time1)} <span>${jogo.time1}</span></div>
+                        <div class="game-card-score">
+                            <input type="number" class="mobile-score-input" value="${s1}" oninput="saveInputValueDirectly(${index}, 1, this.value)">
+                            <span>:</span>
+                            <input type="number" class="mobile-score-input" value="${s2}" oninput="saveInputValueDirectly(${index}, 2, this.value)">
+                        </div>
+                        <div class="game-card-team right"><span>${jogo.time2}</span> ${getFlagImgHTML(jogo.time2)}</div>
+                    </div>
+                `;
+                container.appendChild(card);
             });
         }
 
-        function saveMobileGameInput(input) {
-            const idx = input.dataset.gameIdx;
-            const pos = input.dataset.scorePos;
-            const value = input.value;
-
-            const localData = JSON.parse(localStorage.getItem('copaResultsMobile') || '{}');
-            localData[`game_${idx}_${pos}`] = value;
-            localStorage.setItem('copaResultsMobile', JSON.stringify(localData));
-        }
-
-        /* ========== ABA 3: CRIAÇÃO DAS TAGS HORIZONTAIS (UI MODERNA) ========== */
+        /* ========== INTERAÇÃO DE GRUPOS (ABA 3) ========== */
         function buildGroupsHorizontalTags() {
-            const scrollContainer = document.getElementById('groupsTagsScroll');
-            scrollContainer.innerHTML = '';
-
-            Object.keys(gruposData).forEach(groupLetter => {
+            const container = document.getElementById('groupsTagsScroll');
+            container.innerHTML = '';
+            Object.keys(gruposData).forEach(g => {
                 const btn = document.createElement('button');
-                btn.className = `group-tag-btn ${groupLetter === currentSelectedGroup ? 'active' : ''}`;
-                btn.textContent = `Grupo ${groupLetter}`;
+                btn.className = `group-tag-btn ${g === currentSelectedGroup ? 'active' : ''}`;
+                btn.textContent = `Grupo ${g}`;
                 btn.onclick = () => {
-                    currentSelectedGroup = groupLetter;
+                    currentSelectedGroup = g;
                     document.querySelectorAll('.group-tag-btn').forEach(b => b.classList.remove('active'));
                     btn.classList.add('active');
                     renderMobileGroupView();
                 };
-                scrollContainer.appendChild(btn);
+                container.appendChild(btn);
             });
         }
 
-        /* ========== ABA 3: CONSTRUÇÃO DA TABELA E JOGOS CHAVEADOS ========== */
         function renderMobileGroupView() {
-            document.getElementById('mobileGroupClassTitle').textContent = `Classificação — Grupo ${currentSelectedGroup}`;
-
-            // Renderiza Classificação Calculada automaticamente
+            document.getElementById('mobileGroupClassTitle').textContent = `Classificação Real — Grupo ${currentSelectedGroup}`;
+            
             const classBody = document.getElementById('mobileGroupClassBody');
             classBody.innerHTML = '';
-            
-            const orderedTeams = calculateGroupStandings(currentSelectedGroup);
-            orderedTeams.forEach(team => {
+            calculateGroupStandings(currentSelectedGroup).forEach(team => {
                 const row = document.createElement('div');
                 row.className = 'table-team-row';
                 row.innerHTML = `
-                    <div class="table-team-name-col">
-                        ${getFlagImgHTML(team.name)}
-                        <span>${team.name}</span>
-                    </div>
+                    <div class="table-team-name-col">${getFlagImgHTML(team.name)} <span>${team.name}</span></div>
                     <div style="font-weight:bold;">${team.pontos}</div>
                     <div>${team.jogos}</div>
                     <div>${team.vitorias}</div>
@@ -1004,7 +789,6 @@
                 classBody.appendChild(row);
             });
 
-            // Renderiza Jogos do Grupo
             const gamesContainer = document.getElementById('mobileGroupGamesContainer');
             gamesContainer.innerHTML = '';
             const localData = JSON.parse(localStorage.getItem('copaResultsMobile') || '{}');
@@ -1012,141 +796,72 @@
             jogosData.forEach((jogo, index) => {
                 if (jogo.grupo !== currentSelectedGroup) return;
 
-                const score1 = localData[`game_${index}_1`] || '';
-                const score2 = localData[`game_${index}_2`] || '';
+                const s1 = localData[`game_${index}_1`] || '';
+                const s2 = localData[`game_${index}_2`] || '';
 
-                const row = document.createElement('div');
-                row.style = "display:flex; justify-content:space-between; align-items:center; padding:8px 4px; border-bottom:1px solid var(--border-light);";
-                row.innerHTML = `
-                    <div style="font-size:0.7em; color:var(--color-muted); width:55px;"><strong>${jogo.data}</strong><br>${jogo.hora}</div>
-                    <div style="flex:1; font-size:0.8em; font-weight:600; display:flex; flex-direction:column; gap:4px;">
-                        <div style="display:flex; align-items:center; gap:4px;">${getFlagImgHTML(jogo.time1)} ${jogo.time1}</div>
-                        <div style="display:flex; align-items:center; gap:4px;">${getFlagImgHTML(jogo.time2)} ${jogo.time2}</div>
+                const div = document.createElement('div');
+                div.style = "display:flex; justify-content:space-between; align-items:center; padding:8px 0; border-bottom:1px solid var(--border-light);";
+                div.innerHTML = `
+                    <div style="font-size:0.7em; color:var(--color-muted); width:60px;"><strong>${jogo.data}</strong><br>${jogo.hora}</div>
+                    <div style="flex:1; font-size:0.8em; font-weight:600;">
+                        <div>${getFlagImgHTML(jogo.time1)} ${jogo.time1}</div>
+                        <div style="margin-top:4px;">${getFlagImgHTML(jogo.time2)} ${jogo.time2}</div>
                     </div>
                     <div style="display:flex; flex-direction:column; gap:4px;">
-                        <input type="number" class="mobile-score-input group-sync-input" value="${score1}" data-global-id="${index}" data-pos="1" style="height:26px; width:34px; font-size:0.8em;">
-                        <input type="number" class="mobile-score-input group-sync-input" value="${score2}" data-global-id="${index}" data-pos="2" style="height:26px; width:34px; font-size:0.8em;">
+                        <input type="number" class="mobile-score-input" value="${s1}" style="height:24px; width:34px; font-size:0.8em;" oninput="saveInputValueDirectly(${index}, 1, this.value); renderMobileGroupView();">
+                        <input type="number" class="mobile-score-input" value="${s2}" style="height:24px; width:34px; font-size:0.8em;" oninput="saveInputValueDirectly(${index}, 2, this.value); renderMobileGroupView();">
                     </div>
                 `;
-                gamesContainer.appendChild(row);
+                gamesContainer.appendChild(div);
             });
         }
 
-        function saveMobileGroupScores() {
-            const localData = JSON.parse(localStorage.getItem('copaResultsMobile') || '{}');
-            
-            document.querySelectorAll('.group-sync-input').forEach(input => {
-                const idx = input.dataset.globalId;
-                const pos = input.dataset.pos;
-                localData[`game_${idx}_${pos}`] = input.value;
-            });
-
-            localStorage.setItem('copaResultsMobile', JSON.stringify(localData));
-            renderMobileGroupView(); // Força recálculo visual imediato da tabela
-            showMobileToast('Palpites salvos e tabela atualizada! ⚽');
-        }
-
-        /* ========== SISTEMA DE PARTILHA DIRECTA (WHATSAPP TEXT) ========== */
         function shareGroupPredictions() {
             const localData = JSON.parse(localStorage.getItem('copaResultsMobile') || '{}');
-            let textOutput = `🏆 *Meus Palpites da Copa 2026 - Grupo ${currentSelectedGroup}* 🏆\n\n`;
-            let matchCount = 0;
-
-            jogosData.forEach((jogo, index) => {
-                if (jogo.grupo !== currentSelectedGroup) return;
-
-                const score1 = localData[`game_${index}_1`] || '?';
-                const score2 = localData[`game_${index}_2`] || '?';
-                
-                textOutput += `• ${jogo.time1} ${score1} x ${score2} ${jogo.time2}\n`;
-                matchCount++;
+            let txt = `🏆 *Resultados da Copa 2026 — Grupo ${currentSelectedGroup}* 🏆\n\n`;
+            jogosData.forEach((j, i) => {
+                if (j.grupo !== currentSelectedGroup) return;
+                const s1 = localData[`game_${i}_1`] || '0';
+                const s2 = localData[`game_${i}_2`] || '0';
+                txt += `• ${j.time1} ${s1} x ${s2} ${j.time2}\n`;
             });
-
-            textOutput += `\n_Gerado por Mobile Dashboard Simulator_ 📱`;
-
-            // Utiliza a API de navegação nativa para partilha se disponível, caso contrário copia para clipboard
-            if (navigator.share) {
-                navigator.share({
-                    title: `Palpites Grupo ${currentSelectedGroup}`,
-                    text: textOutput
-                }).catch(() => {});
-            } else {
-                navigator.clipboard.writeText(textOutput);
-                showMobileToast('Texto copiado! Cole no WhatsApp dos amigos. 🟢');
-            }
+            if (navigator.share) { navigator.share({ text: txt }).catch(() => {}); } 
+            else { navigator.clipboard.writeText(txt); alert('Resultados copiados para partilhar!'); }
         }
 
-        /* ========== MODAIS INTERATIVOS ========== */
+        /* ========== GESTÃO DE ABAS E MODAIS ========== */
+        function switchMobileTab(e, tabId) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.tab-button').forEach(el => el.classList.remove('active'));
+            document.getElementById(tabId).classList.add('active');
+            if (e) e.target.classList.add('active');
+
+            if (tabId === 'tab-dashboard') updateDashboardStats();
+            if (tabId === 'tab-jogos') renderMobileGamesList();
+            if (tabId === 'tab-grupos') { buildGroupsHorizontalTags(); renderMobileGroupView(); }
+        }
+
         function triggerMobileModal(type) {
-            const titleEl = document.getElementById('mobileModalTitle');
-            const bodyEl = document.getElementById('mobileModalBody');
-            let content = '';
-
-            if (type === 'selecoes') {
-                titleEl.textContent = 'Seleções Competindo (48)';
-                content = '<div class="modal-grid-list">';
-                Object.keys(flagsRegistry).sort().forEach(name => {
-                    if(name !== "EUA") {
-                        content += `
-                            <div class="modal-list-item">
-                                <img src="https://flagcdn.com/w40/${flagsRegistry[name]}.png" class="flag-icon" alt="${name}">
-                                <span>${name}</span>
-                            </div>`;
-                    }
-                });
-                content += '</div>';
-            } 
-            else if (type === 'sedes') {
-                titleEl.textContent = 'Cidades-Sede e Estádios Oficiais';
-                content = `
-                    <div class="modal-block-item">
-                        <strong>🇺🇸 ESTADOS UNIDOS</strong>
-                        <p style="margin-top:4px; font-size:0.9em; color:var(--color-muted);">
-                            • Nova Jersey: MetLife Stadium<br>• Dallas: AT&T Stadium<br>
-                            • Kansas City: Arrowhead Stadium<br>• Houston: NRG Stadium<br>
-                            • Atlanta: Mercedes-Benz Stadium<br>• Los Angeles: SoFi Stadium<br>
-                            • Filadélfia: Lincoln Financial Field<br>• Seattle: Lumen Field<br>
-                            • Santa Clara: Levi's Stadium<br>• Boston: Gillette Stadium<br>
-                            • Miami: Hard Rock Stadium
-                        </p>
-                    </div>
-                    <div class="modal-block-item" style="border-left-color:#06A77D;">
-                        <strong>🇲🇽 MÉXICO</strong>
-                        <p style="margin-top:4px; font-size:0.9em; color:var(--color-muted);">
-                            • Cidade do México: Estádio Azteca<br>
-                            • Monterrey: Estádio BBVA (El Gigante de Acero)<br>
-                            • Guadalajara: Estádio Akron
-                        </p>
-                    </div>
-                    <div class="modal-block-item" style="border-left-color:#F77F00;">
-                        <strong>🇨🇦 CANADÁ</strong>
-                        <p style="margin-top:4px; font-size:0.9em; color:var(--color-muted);">
-                            • Vancouver: Vancouver Place (BC Place)<br>
-                            • Toronto: Toronto Field (BMO Field)
-                        </p>
-                    </div>
-                `;
-            }
-
-            bodyEl.innerHTML = content;
+            const body = document.getElementById('mobileModalBody');
+            document.getElementById('mobileModalTitle').textContent = type === 'selecoes' ? 'Seleções Registadas' : 'Estádios';
+            
+            let html = '<div class="modal-grid-list">';
+            Object.keys(flagsRegistry).sort().forEach(t => {
+                html += `<div class="modal-list-item">${getFlagImgHTML(t)} <span>${t}</span></div>`;
+            });
+            html += '</div>';
+            body.innerHTML = html;
             document.getElementById('mobileModalOverlay').style.display = 'flex';
         }
 
         function closeMobileModal(e) {
-            if (e === true || e.target === document.getElementById('mobileModalOverlay')) {
+            if (e === true || e.target.id === 'mobileModalOverlay') {
                 document.getElementById('mobileModalOverlay').style.display = 'none';
             }
         }
 
-        function showMobileToast(msg) {
-            const toast = document.getElementById('mobileToast');
-            toast.textContent = msg;
-            toast.style.opacity = '1';
-            setTimeout(() => { toast.style.opacity = '0'; }, 2200);
-        }
-
-        // Execução Inicial Nociva ao Carregamento
-        loadSavedTheme();
+        // Inicialização Inicial Nociva
+        document.body.setAttribute('data-theme', localStorage.getItem('copaThemeMobile') || 'light');
         updateDashboardStats();
     </script>
 </body>
