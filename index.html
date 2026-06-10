@@ -5,20 +5,52 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Copa do Mundo 2026 — Mobile Dashboard</title>
     <style>
+        /* ========== VARIÁVEIS DE TEMA (CLARO/ESCURO) ========== */
+        :root {
+            --bg-body: #f4f7f9;
+            --bg-card: white;
+            --bg-input: white;
+            --bg-item: #f8fafc;
+            --color-text: #2C3E50;
+            --color-muted: #718096;
+            --color-hint: #a0aec0;
+            --border-color: #cbd5e0;
+            --border-light: #edf2f7;
+            --bg-tabs: #e2e8f0;
+            --bg-brasil: #f0fdf4;
+            --border-brasil: #06A77D;
+        }
+
+        [data-theme="dark"] {
+            --bg-body: #0f172a;
+            --bg-card: #1e293b;
+            --bg-input: #334155;
+            --bg-item: #1e293b;
+            --color-text: #f8fafc;
+            --color-muted: #94a3b8;
+            --color-hint: #64748b;
+            --border-color: #475569;
+            --border-light: #334155;
+            --bg-tabs: #334155;
+            --bg-brasil: #064e3b;
+            --border-brasil: #10b981;
+        }
+
         /* ========== RESET & BASICS (MOBILE FIRST) ========== */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent; /* Remove o flash azul ao tocar no iOS */
+            -webkit-tap-highlight-color: transparent;
+            transition: background-color 0.2s ease, color 0.2s ease;
         }
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background: #f4f7f9;
-            color: #2C3E50;
+            background: var(--bg-body);
+            color: var(--color-text);
             min-height: 100vh;
-            padding-bottom: 60px; /* Espaço para não cobrir o conteúdo com o rodapé */
+            padding-bottom: 70px;
         }
 
         header {
@@ -29,6 +61,7 @@
             border-bottom-left-radius: 20px;
             border-bottom-right-radius: 20px;
             box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            position: relative;
         }
 
         header h1 {
@@ -43,9 +76,28 @@
             opacity: 0.85;
         }
 
+        /* Botão Dark Mode */
+        .theme-toggle {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            padding: 8px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.1em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+        }
+
         .container {
             padding: 15px;
-            max-width: 600px; /* Focado estritamente no padrão de largura de celulares */
+            max-width: 600px;
             margin: 0 auto;
         }
 
@@ -54,7 +106,7 @@
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 5px;
-            background: #e2e8f0;
+            background: var(--bg-tabs);
             padding: 4px;
             border-radius: 10px;
             margin-bottom: 20px;
@@ -64,20 +116,23 @@
             padding: 10px 5px;
             background: transparent;
             border: none;
-            color: #4A5568;
+            color: var(--color-muted);
             font-weight: bold;
             font-size: 0.8em;
             cursor: pointer;
             border-radius: 8px;
-            transition: all 0.2s ease;
             text-align: center;
             white-space: nowrap;
         }
 
         .tab-button.active {
-            background: white;
+            background: var(--bg-card);
             color: #1B4965;
             box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+
+        [data-theme="dark"] .tab-button.active {
+            color: #38bdf8;
         }
 
         .tab-content {
@@ -103,12 +158,12 @@
         }
 
         .stat-card {
-            background: white;
+            background: var(--bg-card);
             padding: 15px;
             border-radius: 12px;
             text-align: center;
             box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-            border: 1px solid #eef2f5;
+            border: 1px solid var(--border-light);
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -117,7 +172,7 @@
         }
 
         .stat-card:active {
-            background: #f8fafc; /* Feedback visual ao toque */
+            opacity: 0.8;
         }
 
         .stat-card.primary { border-top: 4px solid #1B4965; }
@@ -131,6 +186,7 @@
             color: #1B4965;
             margin: 4px 0;
         }
+        [data-theme="dark"] .stat-number { color: #f8fafc; }
 
         .stat-card.accent .stat-number { color: #D62828; }
         .stat-card.success .stat-number { color: #06A77D; }
@@ -138,7 +194,7 @@
 
         .stat-label {
             font-size: 0.75em;
-            color: #718096;
+            color: var(--color-muted);
             text-transform: uppercase;
             font-weight: bold;
             letter-spacing: 0.5px;
@@ -146,13 +202,41 @@
 
         .stat-hint {
             font-size: 0.65em;
-            color: #a0aec0;
+            color: var(--color-hint);
             margin-top: 2px;
+        }
+
+        /* ========== PROGRESS BAR (GAMIFICAÇÃO) ========== */
+        .progress-section {
+            background: var(--bg-card);
+            padding: 15px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            margin-bottom: 15px;
+        }
+        .progress-section h4 {
+            font-size: 0.85em;
+            color: var(--color-muted);
+            margin-bottom: 8px;
+            text-transform: uppercase;
+        }
+        .progress-bar-bg {
+            background: var(--bg-tabs);
+            height: 12px;
+            border-radius: 6px;
+            overflow: hidden;
+            width: 100%;
+        }
+        .progress-bar-fill {
+            background: #06A77D;
+            height: 100%;
+            width: 0%;
+            transition: width 0.3s ease;
         }
 
         /* ========== INFO SECTIONS ========== */
         .info-section {
-            background: white;
+            background: var(--bg-card);
             padding: 15px;
             border-radius: 12px;
             box-shadow: 0 2px 8px rgba(0,0,0,0.05);
@@ -163,9 +247,10 @@
             color: #1B4965;
             font-size: 1em;
             margin-bottom: 12px;
-            border-bottom: 2px solid #edf2f7;
+            border-bottom: 2px solid var(--border-light);
             padding-bottom: 6px;
         }
+        [data-theme="dark"] .info-section h3 { color: #38bdf8; }
 
         .info-list {
             list-style: none;
@@ -173,7 +258,7 @@
 
         .info-list li {
             padding: 10px;
-            background: #f8fafc;
+            background: var(--bg-item);
             border-left: 3px solid #06A77D;
             border-radius: 4px;
             margin-bottom: 8px;
@@ -186,10 +271,11 @@
             display: block;
             margin-bottom: 2px;
         }
+        [data-theme="dark"] .info-list li strong { color: #38bdf8; }
 
         /* ========== FILTROS E BUSCAS MOBILE ========== */
         .filter-wrapper {
-            background: white;
+            background: var(--bg-card);
             padding: 12px;
             border-radius: 12px;
             margin-bottom: 15px;
@@ -203,42 +289,65 @@
         .filter-wrapper select {
             width: 100%;
             padding: 10px 12px;
-            border: 1px solid #cbd5e0;
+            border: 1px solid var(--border-color);
             border-radius: 8px;
             font-size: 0.9em;
             outline: none;
-            background-color: #f8fafc;
-            -webkit-appearance: none; /* Uniformiza select no iOS */
+            background-color: var(--bg-body);
+            color: var(--color-text);
         }
 
-        .filter-wrapper select {
-            background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'><path fill='%234A5568' d='M0 0l5 5 5-5z'/></svg>");
-            background-repeat: no-repeat;
-            background-position: right 12px center;
+        /* ========== SCROLL HORIZONTAL DE TAGS DE GRUPOS ========== */
+        .groups-scroll-container {
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            padding: 4px 0 10px 0;
+            scrollbar-width: none; /* Oculta scrollbar no Firefox */
+        }
+        .groups-scroll-container::-webkit-scrollbar {
+            display: none; /* Oculta scrollbar no Chrome/Safari */
+        }
+        .group-tag-btn {
+            background: var(--bg-card);
+            color: var(--color-text);
+            border: 1px solid var(--border-color);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: bold;
+            cursor: pointer;
+            white-space: nowrap;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+        }
+        .group-tag-btn.active {
+            background: #1B4965;
+            color: white;
+            border-color: #1B4965;
         }
 
         /* ========== JOGOS CARD-STYLE (EVITA QUEBRA DE TABELAS) ========== */
         .game-card {
-            background: white;
+            background: var(--bg-card);
             border-radius: 12px;
             padding: 12px;
             margin-bottom: 10px;
             box-shadow: 0 2px 6px rgba(0,0,0,0.03);
-            border-left: 4px solid #cbd5e0;
+            border-left: 4px solid var(--border-color);
         }
 
         .game-card.brasil-match {
-            border-left-color: #06A77D;
-            background: #f0fdf4;
+            border-left-color: var(--border-brasil);
+            background: var(--bg-brasil);
         }
 
         .game-card-meta {
             display: flex;
             justify-content: space-between;
             font-size: 0.75em;
-            color: #718096;
+            color: var(--color-muted);
             margin-bottom: 8px;
-            border-bottom: 1px dashed #e2e8f0;
+            border-bottom: 1px dashed var(--border-light);
             padding-bottom: 4px;
         }
 
@@ -275,27 +384,28 @@
             text-align: center;
             font-size: 0.95em;
             font-weight: bold;
-            border: 1px solid #cbd5e0;
+            border: 1px solid var(--border-color);
             border-radius: 6px;
-            background: white;
+            background: var(--bg-input);
+            color: var(--color-text);
             outline: none;
         }
 
         .mobile-score-input:focus {
             border-color: #1B4965;
-            background: #f0fdf4;
+            background: var(--bg-item);
         }
 
         .game-card-venue {
             font-size: 0.7em;
-            color: #94a3b8;
+            color: var(--color-hint);
             text-align: center;
             margin-top: 6px;
         }
 
-        /* ========== CONTAINER DE GRUPOS INTERATIVOS ========== */
+        /* ========== CONTAINER DE GRUPOS INTERATIVOS & TABELA DE CLASSIFICAÇÃO ========== */
         .mobile-group-box {
-            background: white;
+            background: var(--bg-card);
             border-radius: 12px;
             box-shadow: 0 2px 8px rgba(0,0,0,0.05);
             margin-bottom: 15px;
@@ -310,40 +420,28 @@
             font-weight: bold;
         }
 
-        .mobile-group-body {
-            padding: 12px;
+        .table-header-row, .table-team-row {
+            display: grid;
+            grid-template-columns: 2fr repeat(4, 1fr);
+            text-align: center;
+            align-items: center;
+            font-size: 0.8em;
+            padding: 8px 10px;
         }
-
-        .mobile-team-item {
+        .table-header-row {
+            background: var(--bg-tabs);
+            font-weight: bold;
+            color: var(--color-text);
+        }
+        .table-team-row {
+            border-bottom: 1px solid var(--border-light);
+        }
+        .table-team-name-col {
             display: flex;
             align-items: center;
-            justify-content: space-between;
-            padding: 10px;
-            background: #f8fafc;
-            border-radius: 8px;
-            margin-bottom: 6px;
-            border-left: 3px solid #718096;
-        }
-
-        .mobile-team-item.destaque {
-            border-left-color: #06A77D;
-            background: #f0fdf4;
-        }
-
-        .mobile-team-left {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .mobile-team-name {
-            font-size: 0.85em;
+            gap: 6px;
+            text-align: left;
             font-weight: 600;
-        }
-
-        .mobile-team-desc {
-            font-size: 0.7em;
-            color: #718096;
         }
 
         .flag-icon {
@@ -373,7 +471,7 @@
         }
 
         .modal {
-            background: white;
+            background: var(--bg-card);
             border-top-left-radius: 20px;
             border-top-right-radius: 20px;
             padding: 20px;
@@ -392,7 +490,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 1px solid #edf2f7;
+            border-bottom: 1px solid var(--border-light);
             padding-bottom: 10px;
             margin-bottom: 15px;
         }
@@ -401,11 +499,12 @@
             font-size: 1.1em;
             color: #1B4965;
         }
+        [data-theme="dark"] .modal-header h3 { color: #38bdf8; }
 
         .modal-close-btn {
             font-size: 1.5em;
             font-weight: bold;
-            color: #a0aec0;
+            color: var(--color-hint);
             border: none;
             background: transparent;
             cursor: pointer;
@@ -423,14 +522,14 @@
             align-items: center;
             gap: 8px;
             padding: 10px;
-            background: #f8fafc;
+            background: var(--bg-item);
             border-radius: 8px;
             font-size: 0.8em;
             font-weight: 600;
         }
 
         .modal-block-item {
-            background: #f8fafc;
+            background: var(--bg-item);
             padding: 12px;
             border-radius: 8px;
             margin-bottom: 10px;
@@ -439,7 +538,7 @@
             line-height: 1.4;
         }
 
-        /* ========== FOOTER & TOAST NATIVOS ========== */
+        /* ========== FOOTER & BOTÕES DE AÇÃO ========== */
         footer {
             background: #0f2c42;
             color: #a0aec0;
@@ -452,6 +551,12 @@
             box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
         }
 
+        .action-buttons-group {
+            display: flex;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
         .save-action-btn {
             background: #06A77D;
             color: white;
@@ -460,15 +565,31 @@
             padding: 12px;
             font-weight: bold;
             font-size: 0.9em;
-            width: 100%;
+            flex: 2;
             cursor: pointer;
             box-shadow: 0 2px 6px rgba(6,167,125,0.3);
-            margin-top: 5px;
+        }
+
+        .share-action-btn {
+            background: #25D366;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 12px;
+            font-weight: bold;
+            font-size: 0.9em;
+            flex: 1;
+            cursor: pointer;
+            box-shadow: 0 2px 6px rgba(37,211,102,0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
         }
 
         .toast {
             position: fixed;
-            bottom: 70px;
+            bottom: 80px;
             left: 50%;
             transform: translateX(-50%);
             background: #06A77D;
@@ -490,6 +611,7 @@
     <header>
         <h1>⚽ COPA DO MUNDO 2026</h1>
         <p>Painel Interativo Otimizado para Celular</p>
+        <button class="theme-toggle" onclick="toggleMobileTheme()" title="Alternar Tema">🌓</button>
     </header>
 
     <div class="container">
@@ -507,7 +629,7 @@
                     <span class="stat-hint">Ver lista 🔍</span>
                 </div>
                 <div class="stat-card accent" onclick="switchMobileTab(null, 'tab-jogos')">
-                    <span class="stat-label">Partidas</span>
+                    <span class="stat-label">Partidas Total</span>
                     <span class="stat-number">104</span>
                     <span class="stat-hint">Ir para tabela 📋</span>
                 </div>
@@ -516,10 +638,20 @@
                     <span class="stat-number">16</span>
                     <span class="stat-hint">Ver estádios 🏟️</span>
                 </div>
-                <div class="stat-card warning" onclick="triggerMobileModal('paises')">
-                    <span class="stat-label">Anfitriões</span>
-                    <span class="stat-number">3</span>
-                    <span class="stat-hint">Ver detalhes 🌎</span>
+                <div class="stat-card warning" id="statCardEmpates">
+                    <span class="stat-label">Seus Empates</span>
+                    <span class="stat-number" id="statsEmpatesNum">0</span>
+                    <span class="stat-hint">Previsões de igualdade</span>
+                </div>
+            </div>
+
+            <div class="progress-section">
+                <div style="display:flex; justify-content:space-between; margin-bottom: 5px;">
+                    <h4>Seus Palpites da 1ª Rodada</h4>
+                    <span id="progressPercentText" style="font-size:0.8em; font-weight:bold; color:#06A77D;">0/24 (0%)</span>
+                </div>
+                <div class="progress-bar-bg">
+                    <div class="progress-bar-fill" id="progressBarFill"></div>
                 </div>
             </div>
 
@@ -545,33 +677,31 @@
         </div>
 
         <div id="tab-grupos" class="tab-content">
-            <div class="filter-wrapper">
-                <select id="groupMobileSelect" onchange="renderMobileGroupView()">
-                    <option value="A">Grupo A</option>
-                    <option value="B">Grupo B</option>
-                    <option value="C" selected>Grupo C (Brasil)</option>
-                    <option value="D">Grupo D</option>
-                    <option value="E">Grupo E</option>
-                    <option value="F">Grupo F</option>
-                    <option value="G">Grupo G</option>
-                    <option value="H">Grupo H</option>
-                    <option value="I">Grupo I</option>
-                    <option value="J">Grupo J</option>
-                    <option value="K">Grupo K</option>
-                    <option value="L">Grupo L</option>
-                </select>
+            <div class="groups-scroll-container" id="groupsTagsScroll">
+                </div>
+
+            <div class="mobile-group-box">
+                <div class="mobile-group-header" id="mobileGroupClassTitle">Classificação Real-Time</div>
+                <div class="table-header-row">
+                    <div style="text-align:left;">Seleção</div>
+                    <div>P</div>
+                    <div>J</div>
+                    <div>V</div>
+                    <div>SG</div>
+                </div>
+                <div id="mobileGroupClassBody">
+                    </div>
             </div>
 
             <div class="mobile-group-box">
-                <div class="mobile-group-header" id="mobileGroupTitle">Seleções</div>
-                <div class="mobile-group-body" id="mobileGroupTeamsContainer"></div>
-            </div>
-
-            <div class="mobile-group-box">
-                <div class="mobile-group-header">Jogos Chaveados</div>
+                <div class="mobile-group-header">Jogos do Grupo</div>
                 <div class="mobile-group-body" id="mobileGroupGamesContainer" style="padding: 8px;"></div>
             </div>
-            <button class="save-action-btn" onclick="saveMobileGroupScores()">💾 Salvar Palpites do Grupo</button>
+
+            <div class="action-buttons-group">
+                <button class="save-action-btn" onclick="saveMobileGroupScores()">💾 Salvar Palpites</button>
+                <button class="share-action-btn" onclick="shareGroupPredictions()">🟢 Partilhar</button>
+            </div>
         </div>
     </div>
 
@@ -592,7 +722,8 @@
     </footer>
 
     <script>
-        // Mapeamento Completo de ISOs para FlagCDN atualizado com as seleções reais
+        let currentSelectedGroup = "C"; // Padrão focado no Brasil
+
         const flagsRegistry = {
             "México": "mx", "África do Sul": "za", "Coreia do Sul": "kr", "República Tcheca": "cz",
             "Canadá": "ca", "Bósnia": "ba", "EUA": "us", "Estados Unidos": "us", "Paraguai": "py",
@@ -609,91 +740,43 @@
         };
 
         const gruposData = {
-            "A": [
-                { name: "Coreia do Sul", desc: "Velocidade Asiática" }, { name: "México", desc: "País Sede - Força Local" },
-                { name: "República Tcheca", desc: "Força Coletiva Europeia" }, { name: "África do Sul", desc: "Representante Africano" }
-            ],
-            "B": [
-                { name: "Bósnia", desc: "Consistência Europeia" }, { name: "Canadá", desc: "País Sede - Evolução" },
-                { name: "Catar", desc: "Técnica do Oriente Médio" }, { name: "Suíça", desc: "Foco Defensivo Estruturado" }
-            ],
-            "C": [
-                { name: "Brasil", desc: "Favorito do Grupo — Pentacampeão", destaque: true }, { name: "Escócia", desc: "Garra Britânica" },
-                { name: "Haiti", desc: "Classificado Concacaf" }, { name: "Marrocos", desc: "Histórico em 2022" }
-            ],
-            "D": [
-                { name: "Austrália", desc: "Representante Oceania/Ásia" }, { name: "Estados Unidos", desc: "País Sede - Gigante Técnico" },
-                { name: "Paraguai", desc: "Garra Conmebol" }, { name: "Turquia", desc: "Força Física Competitiva" }
-            ],
-            "E": [
-                { name: "Alemanha", desc: "Tradicional Tetracampeã" }, { name: "Costa do Marfim", desc: "Físico e Velocidade" },
-                { name: "Curaçao", desc: "Surpresa das Eliminatórias" }, { name: "Equador", desc: "Força Sul-Americana" }
-            ],
-            "F": [
-                { name: "Holanda", desc: "Futebol Dinâmico" }, { name: "Japão", desc: "Disciplina e Técnica" },
-                { name: "Suécia", desc: "Organização Germânica" }, { name: "Tunísia", desc: "Estratégia Coletiva" }
-            ],
-            "G": [
-                { name: "Bélgica", desc: "Fase de Renovação Técnica" }, { name: "Egito", desc: "Força do Norte Africano" },
-                { name: "Irã", desc: "Poder de Marcação" }, { name: "Nova Zelândia", desc: "Destaque da Oceania" }
-            ],
-            "H": [
-                { name: "Arábia Saudita", desc: "Evolução Estrutural" }, { name: "Cabo Verde", desc: "Histórico Crescimento" },
-                { name: "Espanha", desc: "Posse de Bola e Domínio" }, { name: "Uruguai", desc: "Tradição e Entrega" }
-            ],
-            "I": [
-                { name: "França", desc: "Elenco de Alto Nível" }, { name: "Iraque", desc: "Guerreiros da Ásia" },
-                { name: "Noruega", desc: "Ataque Jovem e Fatal" }, { name: "Senegal", desc: "Potência Física Continental" }
-            ],
-            "J": [
-                { name: "Argentina", desc: "Atual Defensora do Título" }, { name: "Argélia", desc: "Habilidade Técnica" },
-                { name: "Jordânia", desc: "Estreante Motivado" }, { name: "Áustria", desc: "Consistência Europeia" }
-            ],
-            "K": [
-                { name: "Colômbia", desc: "Habilidade e Técnica Pura" }, { name: "Portugal", desc: "Talento e Ambição Europeia" },
-                { name: "RD Congo", desc: "Velocidade e Transições" }, { name: "Uzbequistão", desc: "Nova Força Asiática" }
-            ],
-            "L": [
-                { name: "Croácia", desc: "Controle de Meio-Campo" }, { name: "Gana", desc: "Tradição em Copas" },
-                { name: "Inglaterra", desc: "Poder da Liga Local" }, { name: "Panamá", desc: "Velocidade e Explosão" }
-            ]
+            "A": ["Coreia do Sul", "México", "República Tcheca", "África do Sul"],
+            "B": ["Bósnia", "Canadá", "Catar", "Suíça"],
+            "C": ["Brasil", "Escócia", "Haiti", "Marrocos"],
+            "D": ["Austrália", "Estados Unidos", "Paraguai", "Turquia"],
+            "E": ["Alemanha", "Costa do Marfim", "Curaçao", "Equador"],
+            "F": ["Holanda", "Japão", "Suécia", "Tunísia"],
+            "G": ["Bélgica", "Egito", "Irã", "Nova Zelândia"],
+            "H": ["Arábia Saudita", "Cabo Verde", "Espanha", "Uruguai"],
+            "I": ["França", "Iraque", "Noruega", "Senegal"],
+            "J": ["Argentina", "Argélia", "Jordânia", "Áustria"],
+            "K": ["Colômbia", "Portugal", "RD Congo", "Uzbequistão"],
+            "L": ["Croácia", "Gana", "Inglaterra", "Panamá"]
         };
 
         const jogosData = [
-            // 1ª Rodada Real Oficial conforme dados extraídos
             {data: "11/06", grupo: "A", hora: "16:00", time1: "México", time2: "África do Sul", local: "Azteca", rodada: "1ª"},
             {data: "11/06", grupo: "A", hora: "23:00", time1: "Coreia do Sul", time2: "República Tcheca", local: "Akron", rodada: "1ª"},
-            
             {data: "12/06", grupo: "B", hora: "16:00", time1: "Canadá", time2: "Bósnia", local: "Toronto Field", rodada: "1ª"},
             {data: "13/06", grupo: "B", hora: "16:00", time1: "Catar", time2: "Suíça", local: "Santa Clara", rodada: "1ª"},
-            
             {data: "13/06", grupo: "C", hora: "19:00", time1: "Brasil", time2: "Marrocos", local: "Nova Jersey", rodada: "1ª", brasil: true},
             {data: "13/06", grupo: "C", hora: "22:00", time1: "Haiti", time2: "Escócia", local: "Boston", rodada: "1ª"},
-            
             {data: "12/06", grupo: "D", hora: "22:00", time1: "Estados Unidos", time2: "Paraguai", local: "Los Angeles", rodada: "1ª"},
             {data: "14/06", grupo: "D", hora: "01:00", time1: "Austrália", time2: "Turquia", local: "Vancouver Place", rodada: "1ª"},
-            
             {data: "14/06", grupo: "E", hora: "14:00", time1: "Alemanha", time2: "Curaçao", local: "Houston", rodada: "1ª"},
             {data: "14/06", grupo: "E", hora: "20:00", time1: "Costa do Marfim", time2: "Equador", local: "Filadélfia", rodada: "1ª"},
-            
             {data: "14/06", grupo: "F", hora: "17:00", time1: "Holanda", time2: "Japão", local: "Dallas", rodada: "1ª"},
             {data: "14/06", grupo: "F", hora: "23:00", time1: "Suécia", time2: "Tunísia", local: "El Gigante de Acero", rodada: "1ª"},
-            
             {data: "15/06", grupo: "G", hora: "16:00", time1: "Bélgica", time2: "Egito", local: "Seattle Field", rodada: "1ª"},
             {data: "15/06", grupo: "G", hora: "22:00", time1: "Irã", time2: "Nova Zelândia", local: "Los Angeles", rodada: "1ª"},
-            
             {data: "15/06", grupo: "H", hora: "13:00", time1: "Espanha", time2: "Cabo Verde", local: "Atlanta", rodada: "1ª"},
             {data: "15/06", grupo: "H", hora: "19:00", time1: "Arábia Saudita", time2: "Uruguai", local: "Miami", rodada: "1ª"},
-            
             {data: "16/06", grupo: "I", hora: "16:00", time1: "França", time2: "Senegal", local: "Nova Jersey", rodada: "1ª"},
             {data: "16/06", grupo: "I", hora: "19:00", time1: "Iraque", time2: "Noruega", local: "Boston", rodada: "1ª"},
-            
             {data: "16/06", grupo: "J", hora: "22:00", time1: "Argentina", time2: "Argélia", local: "Kansas City", rodada: "1ª"},
             {data: "17/06", grupo: "J", hora: "01:00", time1: "Áustria", time2: "Jordânia", local: "Santa Clara", rodada: "1ª"},
-            
             {data: "17/06", grupo: "K", hora: "14:00", time1: "Portugal", time2: "RD Congo", local: "Houston", rodada: "1ª"},
             {data: "17/06", grupo: "K", hora: "23:00", time1: "Uzbequistão", time2: "Colômbia", local: "Azteca", rodada: "1ª"},
-            
             {data: "17/06", grupo: "L", hora: "17:00", time1: "Inglaterra", time2: "Croácia", local: "Dallas", rodada: "1ª"},
             {data: "17/06", grupo: "L", hora: "20:00", time1: "Gana", time2: "Panamá", local: "Toronto Field", rodada: "1ª"}
         ];
@@ -701,6 +784,94 @@
         function getFlagImgHTML(teamName) {
             const iso = flagsRegistry[teamName] || 'un';
             return `<img src="https://flagcdn.com/w40/${iso}.png" class="flag-icon" alt="${teamName}">`;
+        }
+
+        /* ========== TEMA DARK MODE NATIVO ========== */
+        function toggleMobileTheme() {
+            const currentTheme = document.body.getAttribute('data-theme');
+            const targetTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            document.body.setAttribute('data-theme', targetTheme);
+            localStorage.setItem('copaThemeMobile', targetTheme);
+        }
+
+        function loadSavedTheme() {
+            const savedTheme = localStorage.getItem('copaThemeMobile') || 'light';
+            document.body.setAttribute('data-theme', savedTheme);
+        }
+
+        /* ========== MÓDULO DE GAMIFICAÇÃO & ESTATÍSTICAS (HOME) ========== */
+        function updateDashboardStats() {
+            const localData = JSON.parse(localStorage.getItem('copaResultsMobile') || '{}');
+            let totalFilled = 0;
+            let totalEmpates = 0;
+
+            jogosData.forEach((_, index) => {
+                const s1 = localData[`game_${index}_1`];
+                const s2 = localData[`game_${index}_2`];
+
+                if (s1 !== undefined && s2 !== undefined && s1 !== "" && s2 !== "") {
+                    totalFilled++;
+                    if (parseInt(s1) === parseInt(s2)) {
+                        totalEmpates++;
+                    }
+                }
+            });
+
+            // Atualiza percentual e barra de preenchimento
+            const pct = Math.round((totalFilled / jogosData.length) * 100) || 0;
+            document.getElementById('progressBarFill').style.width = `${pct}%`;
+            document.getElementById('progressPercentText').textContent = `${totalFilled}/${jogosData.length} (${pct}%)`;
+
+            // Atualiza card de empates
+            document.getElementById('statsEmpatesNum').textContent = totalEmpates;
+        }
+
+        /* ========== MÓDULO DE CÁLCULO DE CLASSIFICAÇÃO AUTOMÁTICA ========== */
+        function calculateGroupStandings(groupLetter) {
+            const localData = JSON.parse(localStorage.getItem('copaResultsMobile') || '{}');
+            const groupTeams = gruposData[groupLetter];
+            
+            // Inicializa dados das equipas
+            let standings = {};
+            groupTeams.forEach(team => {
+                standings[team] = { name: team, pontos: 0, jogos: 0, vitorias: 0, sg: 0 };
+            });
+
+            // Processa jogos do grupo específico
+            jogosData.forEach((jogo, index) => {
+                if (jogo.grupo !== groupLetter) return;
+
+                const s1Str = localData[`game_${index}_1`];
+                const s2Str = localData[`game_${index}_2`];
+
+                if (s1Str !== undefined && s2Str !== undefined && s1Str !== "" && s2Str !== "") {
+                    const s1 = parseInt(s1Str);
+                    const s2 = parseInt(s2Str);
+
+                    standings[jogo.time1].jogos++;
+                    standings[jogo.time2].jogos++;
+                    standings[jogo.time1].sg += (s1 - s2);
+                    standings[jogo.time2].sg += (s2 - s1);
+
+                    if (s1 > s2) {
+                        standings[jogo.time1].pontos += 3;
+                        standings[jogo.time1].vitorias += 1;
+                    } else if (s2 > s1) {
+                        standings[jogo.time2].pontos += 3;
+                        standings[jogo.time2].vitorias += 1;
+                    } else {
+                        standings[jogo.time1].pontos += 1;
+                        standings[jogo.time2].pontos += 1;
+                    }
+                }
+            });
+
+            // Converte em array e ordena por Pontos, Vitórias e Saldo de Golos
+            return Object.values(standings).sort((a, b) => {
+                if (b.pontos !== a.pontos) return b.pontos - a.pontos;
+                if (b.vitorias !== a.vitorias) return b.vitorias - a.vitorias;
+                return b.sg - a.sg;
+            });
         }
 
         /* ========== GERENCIAMENTO DE ABAS ========== */
@@ -718,15 +889,18 @@
                 });
             }
 
+            if (tabId === 'tab-dashboard') updateDashboardStats();
             if (tabId === 'tab-jogos') renderMobileGamesList();
-            if (tabId === 'tab-grupos') renderMobileGroupView();
+            if (tabId === 'tab-grupos') {
+                buildGroupsHorizontalTags();
+                renderMobileGroupView();
+            }
         }
 
-        /* ========== ABA 2: CONSTRUÇÃO DOS CARD DE JOGOS (ESTILO MOBILE) ========== */
+        /* ========== ABA 2: CONSTRUÇÃO DOS CARDS DE JOGOS ========== */
         function renderMobileGamesList() {
             const container = document.getElementById('mobileGamesContainer');
             container.innerHTML = '';
-
             const localData = JSON.parse(localStorage.getItem('copaResultsMobile') || '{}');
 
             jogosData.forEach((jogo, index) => {
@@ -750,7 +924,7 @@
                         </div>
                         <div class="game-card-score">
                             <input type="number" class="mobile-score-input" value="${score1}" data-game-idx="${index}" data-score-pos="1" oninput="saveMobileGameInput(this)">
-                            <span style="color:#a0aec0;font-weight:bold;">:</span>
+                            <span style="color:var(--color-hint);font-weight:bold;">:</span>
                             <input type="number" class="mobile-score-input" value="${score2}" data-game-idx="${index}" data-score-pos="2" oninput="saveMobileGameInput(this)">
                         </div>
                         <div class="game-card-team right">
@@ -786,45 +960,65 @@
             localStorage.setItem('copaResultsMobile', JSON.stringify(localData));
         }
 
-        /* ========== ABA 3: CRIAÇÃO DO CHAVEAMENTO DE GRUPOS DINÂMICOS ========== */
-        function renderMobileGroupView() {
-            const currentGroup = document.getElementById('groupMobileSelect').value;
-            document.getElementById('mobileGroupTitle').textContent = `Seleções do Grupo ${currentGroup}`;
+        /* ========== ABA 3: CRIAÇÃO DAS TAGS HORIZONTAIS (UI MODERNA) ========== */
+        function buildGroupsHorizontalTags() {
+            const scrollContainer = document.getElementById('groupsTagsScroll');
+            scrollContainer.innerHTML = '';
 
-            const teamsContainer = document.getElementById('mobileGroupTeamsContainer');
-            teamsContainer.innerHTML = '';
+            Object.keys(gruposData).forEach(groupLetter => {
+                const btn = document.createElement('button');
+                btn.className = `group-tag-btn ${groupLetter === currentSelectedGroup ? 'active' : ''}`;
+                btn.textContent = `Grupo ${groupLetter}`;
+                btn.onclick = () => {
+                    currentSelectedGroup = groupLetter;
+                    document.querySelectorAll('.group-tag-btn').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    renderMobileGroupView();
+                };
+                scrollContainer.appendChild(btn);
+            });
+        }
+
+        /* ========== ABA 3: CONSTRUÇÃO DA TABELA E JOGOS CHAVEADOS ========== */
+        function renderMobileGroupView() {
+            document.getElementById('mobileGroupClassTitle').textContent = `Classificação — Grupo ${currentSelectedGroup}`;
+
+            // Renderiza Classificação Calculada automaticamente
+            const classBody = document.getElementById('mobileGroupClassBody');
+            classBody.innerHTML = '';
             
-            const times = gruposData[currentGroup] || [];
-            times.forEach(team => {
-                const item = document.createElement('div');
-                item.className = `mobile-team-item ${team.destaque ? 'destaque' : ''}`;
-                item.innerHTML = `
-                    <div class="mobile-team-left">
-                        <img src="https://flagcdn.com/w40/${flagsRegistry[team.name] || 'un'}.png" class="flag-icon-large" alt="${team.name}">
-                        <div>
-                            <div class="mobile-team-name">${team.name}</div>
-                            <div class="mobile-team-desc">${team.desc}</div>
-                        </div>
+            const orderedTeams = calculateGroupStandings(currentSelectedGroup);
+            orderedTeams.forEach(team => {
+                const row = document.createElement('div');
+                row.className = 'table-team-row';
+                row.innerHTML = `
+                    <div class="table-team-name-col">
+                        ${getFlagImgHTML(team.name)}
+                        <span>${team.name}</span>
                     </div>
+                    <div style="font-weight:bold;">${team.pontos}</div>
+                    <div>${team.jogos}</div>
+                    <div>${team.vitorias}</div>
+                    <div>${team.sg > 0 ? '+' + team.sg : team.sg}</div>
                 `;
-                teamsContainer.appendChild(item);
+                classBody.appendChild(row);
             });
 
+            // Renderiza Jogos do Grupo
             const gamesContainer = document.getElementById('mobileGroupGamesContainer');
             gamesContainer.innerHTML = '';
-
             const localData = JSON.parse(localStorage.getItem('copaResultsMobile') || '{}');
 
             jogosData.forEach((jogo, index) => {
-                if (jogo.grupo !== currentGroup) return;
+                if (jogo.grupo !== currentSelectedGroup) return;
 
                 const score1 = localData[`game_${index}_1`] || '';
                 const score2 = localData[`game_${index}_2`] || '';
 
                 const row = document.createElement('div');
-                row.style = "display:flex; justify-content:space-between; align-items:center; padding:8px 4px; border-bottom:1px solid #edf2f7;";
+                row.style = "display:flex; justify-content:space-between; align-items:center; padding:8px 4px; border-bottom:1px solid var(--border-light);";
                 row.innerHTML = `
-                    <div style="font-size:0.7em; color:#718096; width:55px;"><strong>${jogo.data}</strong><br>${jogo.hora}</div>
+                    <div style="font-size:0.7em; color:var(--color-muted); width:55px;"><strong>${jogo.data}</strong><br>${jogo.hora}</div>
                     <div style="flex:1; font-size:0.8em; font-weight:600; display:flex; flex-direction:column; gap:4px;">
                         <div style="display:flex; align-items:center; gap:4px;">${getFlagImgHTML(jogo.time1)} ${jogo.time1}</div>
                         <div style="display:flex; align-items:center; gap:4px;">${getFlagImgHTML(jogo.time2)} ${jogo.time2}</div>
@@ -844,13 +1038,42 @@
             document.querySelectorAll('.group-sync-input').forEach(input => {
                 const idx = input.dataset.globalId;
                 const pos = input.dataset.pos;
-                if (input.value !== '') {
-                    localData[`game_${idx}_${pos}`] = input.value;
-                }
+                localData[`game_${idx}_${pos}`] = input.value;
             });
 
             localStorage.setItem('copaResultsMobile', JSON.stringify(localData));
-            showMobileToast('Palpites salvos com sucesso! ⚽');
+            renderMobileGroupView(); // Força recálculo visual imediato da tabela
+            showMobileToast('Palpites salvos e tabela atualizada! ⚽');
+        }
+
+        /* ========== SISTEMA DE PARTILHA DIRECTA (WHATSAPP TEXT) ========== */
+        function shareGroupPredictions() {
+            const localData = JSON.parse(localStorage.getItem('copaResultsMobile') || '{}');
+            let textOutput = `🏆 *Meus Palpites da Copa 2026 - Grupo ${currentSelectedGroup}* 🏆\n\n`;
+            let matchCount = 0;
+
+            jogosData.forEach((jogo, index) => {
+                if (jogo.grupo !== currentSelectedGroup) return;
+
+                const score1 = localData[`game_${index}_1`] || '?';
+                const score2 = localData[`game_${index}_2`] || '?';
+                
+                textOutput += `• ${jogo.time1} ${score1} x ${score2} ${jogo.time2}\n`;
+                matchCount++;
+            });
+
+            textOutput += `\n_Gerado por Mobile Dashboard Simulator_ 📱`;
+
+            // Utiliza a API de navegação nativa para partilha se disponível, caso contrário copia para clipboard
+            if (navigator.share) {
+                navigator.share({
+                    title: `Palpites Grupo ${currentSelectedGroup}`,
+                    text: textOutput
+                }).catch(() => {});
+            } else {
+                navigator.clipboard.writeText(textOutput);
+                showMobileToast('Texto copiado! Cole no WhatsApp dos amigos. 🟢');
+            }
         }
 
         /* ========== MODAIS INTERATIVOS ========== */
@@ -863,7 +1086,7 @@
                 titleEl.textContent = 'Seleções Competindo (48)';
                 content = '<div class="modal-grid-list">';
                 Object.keys(flagsRegistry).sort().forEach(name => {
-                    if(name !== "EUA") { // Evita duplicados na lista visual
+                    if(name !== "EUA") {
                         content += `
                             <div class="modal-list-item">
                                 <img src="https://flagcdn.com/w40/${flagsRegistry[name]}.png" class="flag-icon" alt="${name}">
@@ -878,7 +1101,7 @@
                 content = `
                     <div class="modal-block-item">
                         <strong>🇺🇸 ESTADOS UNIDOS</strong>
-                        <p style="margin-top:4px; font-size:0.9em; color:#4a5568;">
+                        <p style="margin-top:4px; font-size:0.9em; color:var(--color-muted);">
                             • Nova Jersey: MetLife Stadium<br>• Dallas: AT&T Stadium<br>
                             • Kansas City: Arrowhead Stadium<br>• Houston: NRG Stadium<br>
                             • Atlanta: Mercedes-Benz Stadium<br>• Los Angeles: SoFi Stadium<br>
@@ -889,7 +1112,7 @@
                     </div>
                     <div class="modal-block-item" style="border-left-color:#06A77D;">
                         <strong>🇲🇽 MÉXICO</strong>
-                        <p style="margin-top:4px; font-size:0.9em; color:#4a5568;">
+                        <p style="margin-top:4px; font-size:0.9em; color:var(--color-muted);">
                             • Cidade do México: Estádio Azteca<br>
                             • Monterrey: Estádio BBVA (El Gigante de Acero)<br>
                             • Guadalajara: Estádio Akron
@@ -897,20 +1120,9 @@
                     </div>
                     <div class="modal-block-item" style="border-left-color:#F77F00;">
                         <strong>🇨🇦 CANADÁ</strong>
-                        <p style="margin-top:4px; font-size:0.9em; color:#4a5568;">
+                        <p style="margin-top:4px; font-size:0.9em; color:var(--color-muted);">
                             • Vancouver: Vancouver Place (BC Place)<br>
                             • Toronto: Toronto Field (BMO Field)
-                        </p>
-                    </div>
-                `;
-            } 
-            else if (type === 'paises') {
-                titleEl.textContent = 'Países Organizadores';
-                content = `
-                    <div class="modal-block-item">
-                        <strong>🌎 Organização Conjunta Tripla</strong>
-                        <p style="margin-top:5px; font-size:0.95em; color:#4a5568; line-height:1.4;">
-                            Pela primeira vez na história da FIFA, três países organizam o torneio de forma integrada. Os <strong>Estados Unidos</strong> concentrarão a maior parte dos jogos das fases decisivas. O <strong>México</strong> faz história ao ter o Estádio Azteca como palco pela terceira vez, e o <strong>Canadá</strong> sedia o torneio masculino de forma inédita.
                         </p>
                     </div>
                 `;
@@ -930,11 +1142,12 @@
             const toast = document.getElementById('mobileToast');
             toast.textContent = msg;
             toast.style.opacity = '1';
-            setTimeout(() => { toast.style.opacity = '0'; }, 2000);
+            setTimeout(() => { toast.style.opacity = '0'; }, 2200);
         }
 
-        // Execução Inicial
-        renderMobileGamesList();
+        // Execução Inicial Nociva ao Carregamento
+        loadSavedTheme();
+        updateDashboardStats();
     </script>
 </body>
 </html>
