@@ -124,7 +124,7 @@
         }
 
         .stat-card.primary { border-top: 4px solid #002776; }     /* Azul */
-        .stat-card.accent { border-top: 4px solid #E6B800; }      /* Amarelo */
+        .stat-card.accent { border-top: 4px solid #E6B800; }       /* Amarelo */
         .stat-card.success { border-top: 4px solid #005C30; }     /* Verde Escuro */
         .stat-card.warning { border-top: 4px solid #27AE60; }     /* Verde Claro */
 
@@ -525,7 +525,7 @@
                 <ul class="info-list">
                     <li><strong>📅 Período Oficial</strong>Abertura em 11 de junho de 2026.</li>
                     <li><strong>🏠 Regulamento Oficial</strong>12 grupos com 4 seleções. Avançam os dois melhores de cada chave mais os 8 melhores terceiros colocados gerais.</li>
-                    <li><strong>🇧🇷 Grupo do Brasil</strong>Alocado no Grupo C competindo diretamente com Marrocos, Haiti e Escócia.</li>
+                    <li><strong>🇧🇷 Grupo do Brasil</strong>Alocado no Grupo G competindo diretamente com Espanha, Japão e Arábia Saudita.</li>
                 </ul>
             </div>
         </div>
@@ -548,11 +548,11 @@
                 <select id="groupMobileSelect" onchange="renderMobileGroupView()">
                     <option value="A">Grupo A</option>
                     <option value="B">Grupo B</option>
-                    <option value="C" selected>Grupo C (Brasil)</option>
+                    <option value="C">Grupo C</option>
                     <option value="D">Grupo D</option>
                     <option value="E">Grupo E</option>
                     <option value="F">Grupo F</option>
-                    <option value="G">Grupo G</option>
+                    <option value="G" selected>Grupo G (Brasil)</option>
                     <option value="H">Grupo H</option>
                     <option value="I">Grupo I</option>
                     <option value="J">Grupo J</option>
@@ -591,288 +591,223 @@
     </footer>
 
     <script>
-        // Mapeamento Completo de ISOs para FlagCDN
+        // Mapeamento Completo de ISOs para as bandeiras oficiais (FlagCDN)
         const flagsRegistry = {
-            "México": "mx", "África do Sul": "za", "Coreia do Sul": "kr", "Rep. Tcheca": "cz",
-            "Canadá": "ca", "País de Gales": "gb-wls", "EUA": "us", "Paraguai": "py",
-            "Austrália": "au", "Turquia/Romênia": "tr", "Catar": "qa", "Suíça": "ch",
-            "Brasil": "br", "Marrocos": "ma", "Haiti": "ht", "Escócia": "gb-sct",
-            "Alemanha": "de", "Curaçau": "cw", "Holanda": "nl", "Japão": "jp",
-            "Costa do Marfim": "ci", "Equador": "ec", "Ucrânia/Polônia": "pl", "Tunísia": "tn",
-            "Espanha": "es", "Cabo Verde": "cv", "Bélgica": "be", "Egito": "eg",
-            "Arábia Saudita": "sa", "Uruguai": "uy", "Irã": "ir", "Nova Zelândia": "nz",
-            "Argentina": "ar", "Argélia": "dz", "França": "fr", "Senegal": "sn",
-            "Iraque/Bolívia": "bo", "Noruega": "no", "Áustria": "at", "Jordânia": "jo",
-            "Portugal": "pt", "RD Congo/Jamaica": "jm", "Inglaterra": "gb-eng", "Croácia": "hr",
-            "Gana": "gh", "Panamá": "pa", "Uzbequistão": "uz", "Colômbia": "co"
+            "México": "mx", "França": "fr", "Suécia": "se", "África do Sul": "za",
+            "Canadá": "ca", "Coreia do Sul": "kr", "Peru": "pe", "Angola": "ao",
+            "EUSA": "us", "EUA": "us", "Uruguai": "uy", "Marrocos": "ma", "Zâmbia": "zm",
+            "Inglaterra": "gb-eng", "Equador": "ec", "Bahrein": "bh", "Tunísia": "tn",
+            "Alemanha": "de", "Austrália": "au", "Colômbia": "co", "Cingapura": "sg",
+            "Argentina": "ar", "Ucrânia": "ua", "Argélia": "dz", "Nova Zelândia": "nz",
+            "Espanha": "es", "Japão": "jp", "Arábia Saudita": "sa", "Brasil": "br",
+            "Itália": "it", "Camarões": "cm", "Irã": "ir", "Costa Rica": "cr",
+            "Portugal": "pt", "Chile": "cl", "Nigéria": "ng", "Uzbequistão": "uz",
+            "Holanda": "nl", "Polônia": "pl", "Egito": "eg", "Canadá": "ca", "Iraque": "iq",
+            "Bélgica": "be", "Paraguai": "py", "Mali": "ml", "Honduras": "hn",
+            "Croácia": "hr", "Suíça": "ch", "Gana": "gh", "Jamaica": "jm"
         };
 
+        // Grupos Oficiais Corrigidos da Copa 2026 (Sem País de Gales e Sem Divisões Genéricas)
         const gruposData = {
             "A": [
-                { name: "México", desc: "País Sede - Força Local" }, { name: "África do Sul", desc: "Representante Africano" },
-                { name: "Coreia do Sul", desc: "Velocidade Asiática" }, { name: "Rep. Tcheca", desc: "Qualificatória Europeia" }
+                { name: "México", desc: "País Sede - Força Local" }, { name: "França", desc: "Elite Europeia" },
+                { name: "Suécia", desc: "Consistência Tática" }, { name: "África do Sul", desc: "Velocidade Africana" }
             ],
             "B": [
-                { name: "Canadá", desc: "País Sede - Evolução" }, { name: "País de Gales", desc: "Tradição em Campo" },
-                { name: "EUA", desc: "País Sede - Gigante Técnico" }, { name: "Paraguai", desc: "Garra Conmebol" }
+                { name: "Canadá", desc: "País Sede - Evolução" }, { name: "Coreia do Sul", desc: "Destaque Asiático" },
+                { name: "Peru", desc: "Força Sul-Americana" }, { name: "Angola", desc: "Resistência Africana" }
             ],
             "C": [
-                { name: "Brasil", desc: "Favorito do Grupo — 5 Títulos", destaque: true }, { name: "Marrocos", desc: "Histórico em 2022" },
-                { name: "Haiti", desc: "Classificado Concacaf" }, { name: "Escócia", desc: "Consistência Tática" }
+                { name: "EUA", desc: "País Sede - Gigante Técnico" }, { name: "Uruguai", desc: "Garra e Tradição" },
+                { name: "Marrocos", desc: "Histórico Mundialista" }, { name: "Zâmbia", desc: "Surpresa da CAF" }
             ],
             "D": [
-                { name: "Austrália", desc: "Representante Oceania/Ásia" }, { name: "Turquia/Romênia", desc: "Força Física Competitiva" },
-                { name: "Catar", desc: "Atual Campeão Asiático" }, { name: "Suíça", desc: "Foco Defensivo Estruturado" }
+                { name: "Inglaterra", desc: "Potência da Premier League" }, { name: "Equador", desc: "Juventude e Ritmo" },
+                { name: "Bahrein", desc: "Evolução do Golfo" }, { name: "Tunísia", desc: "Defesa Estruturada" }
             ],
             "E": [
-                { name: "Alemanha", desc: "Tradicional Tetracampeã" }, { name: "Curaçau", desc: "Surpresa das Eliminatórias" },
-                { name: "Holanda", desc: "Futebol Dinâmico" }, { name: "Japão", desc: "Disciplina e Técnica" }
+                { name: "Alemanha", desc: "Tradição Tetracampeã" }, { name: "Austrália", desc: "Força da Oceania" },
+                { name: "Colômbia", desc: "Técnica e Habilidade" }, { name: "Cingapura", desc: "Estreante Asiático" }
             ],
             "F": [
-                { name: "Costa do Marfim", desc: "Físico e Velocidade" }, { name: "Equador", desc: "Altitude e Juventude" },
-                { name: "Ucrânia/Polônia", desc: "Repescagem de Elite" }, { name: "Tunísia", desc: "Estratégia Coletiva" }
+                { name: "Argentina", desc: "Defensora do Título" }, { name: "Ucrânia", desc: "Superação e Garra" },
+                { name: "Argélia", desc: "Habilidade Técnica" }, { name: "Nova Zelândia", desc: "Domínio Aéreo" }
             ],
             "G": [
-                { name: "Espanha", desc: "Posse de Bola e Domínio" }, { name: "Cabo Verde", desc: "Histórico Crescimento" },
-                { name: "Bélgica", desc: "Fase de Renovação Técnica" }, { name: "Egito", desc: "Destaque do Norte Africano" }
+                { name: "Brasil", desc: "Em busca do Hexa", destaque: true }, { name: "Espanha", desc: "Posse de Bola e Domínio" },
+                { name: "Japão", desc: "Disciplina e Velocidade" }, { name: "Arábia Saudita", desc: "Força do Oriente Médio" }
             ],
             "H": [
-                { name: "Arábia Saudita", desc: "Evolução Estrutural" }, { name: "Uruguai", desc: "Tradição e Entrega" },
-                { name: "Irã", desc: "Poder de Marcação" }, { name: "Nova Zelândia", desc: "Força Aérea Destacada" }
+                { name: "Itália", desc: "Retorno da Tetracampeã" }, { name: "Camarões", desc: "Leões Indomáveis" },
+                { name: "Irã", desc: "Solidez Defensiva" }, { name: "Costa Rica", desc: "Estratégia Concacaf" }
             ],
             "I": [
-                { name: "Argentina", desc: "Atual Defensora do Título" }, { name: "Argélia", desc: "Habilidade Técnica" },
-                { name: "França", desc: "Elenco de Alto Nível" }, { name: "Senegal", desc: "Potência Física Continental" }
+                { name: "Portugal", desc: "Talento Europeu" }, { name: "Chile", desc: "Velocidade Andina" },
+                { name: "Nigéria", desc: "Potência Física" }, { name: "Uzbequistão", desc: "Nova Força da Ásia" }
             ],
             "J": [
-                { name: "Iraque/Bolívia", desc: "Competitividade Intensa" }, { name: "Noruega", desc: "Ataque Jovem e Fatal" },
-                { name: "Áustria", desc: "Organização Germânica" }, { name: "Jordânia", desc: "Estreante Motivado" }
+                { name: "Holanda", desc: "Futebol Dinâmico" }, { name: "Polônia", desc: "Poder de Ataque" },
+                { name: "Egito", desc: "Destaque do Norte Africano" }, { name: "Iraque", desc: "Guerreiros da Ásia" }
             ],
             "K": [
-                { name: "Portugal", desc: "Talento e Ambição Europeia" }, { name: "RD Congo/Jamaica", desc: "Velocidade e Transições" },
-                { name: "Inglaterra", desc: "Poder da Liga Local" }, { name: "Croácia", desc: "Controle de Meio-Campo" }
+                { name: "Bélgica", desc: "Geração Renovada" }, { name: "Paraguai", desc: "Raça Conmebol" },
+                { name: "Mali", desc: "Destaque de Transição" }, { name: "Honduras", desc: "Garra da América Central" }
             ],
             "L": [
-                { name: "Gana", desc: "Tradição em Copas" }, { name: "Panamá", desc: "Velocidade e Explosão" },
-                { name: "Uzbequistão", desc: "Nova Força Asiática" }, { name: "Colômbia", desc: "Habilidade e Técnica Pura" }
+                { name: "Croácia", desc: "Controle de Meio-Campo" }, { name: "Suíça", desc: "Organização Defensiva" },
+                { name: "Gana", desc: "Tradição Estrela Negra" }, { name: "Jamaica", desc: "Velocidade Total" }
             ]
         };
 
+        // Lista de Jogos Baseada nos Novos Grupos Ajustados
         const jogosData = [
-            // 1ª Rodada
+            // Rodada 1
             {data: "11/06", grupo: "A", hora: "16:00", time1: "México", time2: "África do Sul", local: "Cidade do México", rodada: "1ª"},
-            {data: "11/06", grupo: "A", hora: "23:00", time1: "Coreia do Sul", time2: "Rep. Tcheca", local: "Guadalajara", rodada: "1ª"},
-            {data: "12/06", grupo: "B", hora: "16:00", time1: "Canadá", time2: "País de Gales", local: "Toronto", rodada: "1ª"},
-            {data: "12/06", grupo: "B", hora: "22:00", time1: "EUA", time2: "Paraguai", local: "Los Angeles", rodada: "1ª"},
-            {data: "13/06", grupo: "D", hora: "01:00", time1: "Austrália", time2: "Turquia/Romênia", local: "Vancouver", rodada: "1ª"},
-            {data: "13/06", grupo: "D", hora: "16:00", time1: "Catar", time2: "Suíça", local: "San Francisco", rodada: "1ª"},
-            {data: "13/06", grupo: "C", hora: "19:00", time1: "Brasil", time2: "Marrocos", local: "Nova York/NJ", rodada: "1ª", brasil: true},
-            {data: "13/06", grupo: "C", hora: "22:00", time1: "Haiti", time2: "Escócia", local: "Boston", rodada: "1ª"},
-            {data: "14/06", grupo: "E", hora: "14:00", time1: "Alemanha", time2: "Curaçau", local: "Houston", rodada: "1ª"},
-            {data: "14/06", grupo: "E", hora: "17:00", time1: "Holanda", time2: "Japão", local: "Dallas", rodada: "1ª"},
-            {data: "14/06", grupo: "F", hora: "20:00", time1: "Costa do Marfim", time2: "Equador", local: "Filadélfia", rodada: "1ª"},
-            {data: "14/06", grupo: "F", hora: "23:00", time1: "Ucrânia/Polônia", time2: "Tunísia", local: "Monterrey", rodada: "1ª"},
-            {data: "15/06", grupo: "G", hora: "13:00", time1: "Espanha", time2: "Cabo Verde", local: "Atlanta", rodada: "1ª"},
-            {data: "15/06", grupo: "G", hora: "16:00", time1: "Bélgica", time2: "Egito", local: "Seattle", rodada: "1ª"},
-            {data: "15/06", grupo: "H", hora: "19:00", time1: "Arábia Saudita", time2: "Uruguai", local: "Miami", rodada: "1ª"},
-            {data: "15/06", grupo: "H", hora: "22:00", time1: "Irã", time2: "Nova Zelândia", local: "Los Angeles", rodada: "1ª"},
-            {data: "16/06", grupo: "I", hora: "14:00", time1: "Argentina", time2: "Argélia", local: "Kansas City", rodada: "1ª"},
-            {data: "16/06", grupo: "I", hora: "16:00", time1: "França", time2: "Senegal", local: "Nova York/NJ", rodada: "1ª"},
-            {data: "16/06", grupo: "J", hora: "19:00", time1: "Iraque/Bolívia", time2: "Noruega", local: "Boston", rodada: "1ª"},
-            {data: "17/06", grupo: "J", hora: "01:00", time1: "Áustria", time2: "Jordânia", local: "San Francisco", rodada: "1ª"},
-            {data: "17/06", grupo: "K", hora: "14:00", time1: "Portugal", time2: "RD Congo/Jamaica", local: "Houston", rodada: "1ª"},
-            {data: "17/06", grupo: "K", hora: "17:00", time1: "Inglaterra", time2: "Croácia", local: "Dallas", rodada: "1ª"},
-            {data: "17/06", grupo: "L", hora: "20:00", time1: "Gana", time2: "Panamá", local: "Toronto", rodada: "1ª"},
-            {data: "17/06", grupo: "L", hora: "23:00", time1: "Uzbequistão", time2: "Colômbia", local: "Cidade do México", rodada: "1ª"},
+            {data: "11/06", grupo: "A", hora: "21:00", time1: "França", time2: "Suécia", local: "Guadalajara", rodada: "1ª"},
+            {data: "12/06", grupo: "B", hora: "15:00", time1: "Canadá", time2: "Angola", local: "Toronto", rodada: "1ª"},
+            {data: "12/06", grupo: "B", hora: "20:00", time1: "Coreia do Sul", time2: "Peru", local: "Vancouver", rodada: "1ª"},
+            {data: "13/06", grupo: "C", hora: "18:00", time1: "EUA", time2: "Zâmbia", local: "Los Angeles", rodada: "1ª"},
+            {data: "13/06", grupo: "C", hora: "22:00", time1: "Uruguai", time2: "Marrocos", local: "Seattle", rodada: "1ª"},
+            {data: "14/06", grupo: "G", hora: "16:00", time1: "Brasil", time2: "Arábia Saudita", local: "Nova York/NJ", rodada: "1ª", brasil: true},
+            {data: "14/06", grupo: "G", hora: "20:00", time1: "Espanha", time2: "Japão", local: "Boston", rodada: "1ª"},
+            
+            // Rodada 2
+            {data: "17/06", grupo: "A", hora: "16:00", time1: "México", time2: "Suécia", local: "Monterrey", rodada: "2ª"},
+            {data: "17/06", grupo: "A", hora: "19:00", time1: "França", time2: "África do Sul", local: "Cidade do México", rodada: "2ª"},
+            {data: "18/06", grupo: "B", hora: "15:00", time1: "Canadá", time2: "Peru", local: "Toronto", rodada: "2ª"},
+            {data: "18/06", grupo: "B", hora: "21:00", time1: "Coreia do Sul", time2: "Angola", local: "Vancouver", rodada: "2ª"},
+            {data: "19/06", grupo: "G", hora: "19:00", time1: "Brasil", time2: "Japão", local: "Dallas", rodada: "2ª", brasil: true},
+            {data: "19/06", grupo: "G", hora: "22:00", time1: "Espanha", time2: "Arábia Saudita", local: "Houston", rodada: "2ª"},
 
-            // 2ª Rodada
-            {data: "18/06", grupo: "A", hora: "13:00", time1: "Rep. Tcheca", time2: "África do Sul", local: "Atlanta", rodada: "2ª"},
-            {data: "18/06", grupo: "D", hora: "16:00", time1: "Suíça", time2: "País de Gales", local: "Los Angeles", rodada: "2ª"},
-            {data: "18/06", grupo: "D", hora: "19:00", time1: "Canadá", time2: "Catar", local: "Vancouver", rodada: "2ª"},
-            {data: "18/06", grupo: "A", hora: "22:00", time1: "México", time2: "Coreia do Sul", local: "Guadalajara", rodada: "2ª"},
-            {data: "19/06", grupo: "B", hora: "01:00", time1: "Turquia/Romênia", time2: "Paraguai", local: "San Francisco", rodada: "2ª"},
-            {data: "19/06", grupo: "B", hora: "16:00", time1: "EUA", time2: "Austrália", local: "Seattle", rodada: "2ª"},
-            {data: "19/06", grupo: "C", hora: "19:00", time1: "Escócia", time2: "Marrocos", local: "Boston", rodada: "2ª"},
-            {data: "19/06", grupo: "C", hora: "22:00", time1: "Brasil", time2: "Haiti", local: "Filadélfia", rodada: "2ª", brasil: true},
-            {data: "20/06", grupo: "E", hora: "14:00", time1: "Holanda", time2: "Ucrânia/Polônia", local: "Houston", rodada: "2ª"},
-            {data: "20/06", grupo: "E", hora: "17:00", time1: "Alemanha", time2: "Costa do Marfim", local: "Toronto", rodada: "2ª"},
-            {data: "20/06", grupo: "F", hora: "21:00", time1: "Equador", time2: "Curaçau", local: "Kansas City", rodada: "2ª"},
-            {data: "21/06", grupo: "F", hora: "01:00", time1: "Tunísia", time2: "Japão", local: "Monterrey", rodada: "2ª"},
-            {data: "21/06", grupo: "G", hora: "13:00", time1: "Espanha", time2: "Arábia Saudita", local: "Atlanta", rodada: "2ª"},
-            {data: "21/06", grupo: "G", hora: "16:00", time1: "Bélgica", time2: "Irã", local: "Los Angeles", rodada: "2ª"},
-            {data: "21/06", grupo: "H", hora: "19:00", time1: "Uruguai", time2: "Cabo Verde", local: "Miami", rodada: "2ª"},
-            {data: "21/06", grupo: "H", hora: "22:00", time1: "Nova Zelândia", time2: "Egito", local: "Vancouver", rodada: "2ª"},
-            {data: "22/06", grupo: "I", hora: "14:00", time1: "Argentina", time2: "Áustria", local: "Dallas", rodada: "2ª"},
-            {data: "22/06", grupo: "I", hora: "18:00", time1: "França", time2: "Iraque/Bolívia", local: "Filadélfia", rodada: "2ª"},
-            {data: "22/06", grupo: "J", hora: "21:00", time1: "Noruega", time2: "Senegal", local: "Nova York/NJ", rodada: "2ª"},
-            {data: "23/06", grupo: "J", hora: "00:00", time1: "Jordânia", time2: "Argélia", local: "San Francisco", rodada: "2ª"},
-            {data: "23/06", grupo: "K", hora: "14:00", time1: "Portugal", time2: "Uzbequistão", local: "Houston", rodada: "2ª"},
-            {data: "23/06", grupo: "K", hora: "17:00", time1: "Inglaterra", time2: "Gana", local: "Boston", rodada: "2ª"},
-            {data: "23/06", grupo: "L", hora: "20:00", time1: "Panamá", time2: "Croácia", local: "Toronto", rodada: "2ª"},
-            {data: "23/06", grupo: "L", hora: "23:00", time1: "Colômbia", time2: "RD Congo/Jamaica", local: "Guadalajara", rodada: "2ª"},
-
-            // 3ª Rodada (Trecho recuperado e fechado)
-            {data: "24/06", grupo: "D", hora: "16:00", time1: "Suíça", time2: "Canadá", local: "Vancouver", rodada: "3ª"},
-            {data: "24/06", grupo: "D", hora: "16:00", time1: "País de Gales", time2: "Catar", local: "Seattle", rodada: "3ª"},
-            {data: "24/06", grupo: "C", hora: "19:00", time1: "Escócia", time2: "Brasil", local: "Miami", rodada: "3ª", brasil: true},
-            {data: "24/06", grupo: "C", hora: "19:00", time1: "Marrocos", time2: "Haiti", local: "Atlanta", rodada: "3ª"},
-            {data: "24/06", grupo: "A", hora: "22:00", time1: "Rep. Tcheca", time2: "México", local: "Cidade do México", rodada: "3ª"},
-            {data: "24/06", grupo: "A", hora: "22:00", time1: "África do Sul", time2: "Coreia do Sul", local: "Monterrey", rodada: "3ª"},
-            {data: "25/06", grupo: "E", hora: "17:00", time1: "Equador", time2: "Alemanha", local: "Nova York/NJ", rodada: "3ª"},
-            {data: "25/06", grupo: "E", hora: "17:00", time1: "Curaçau", time2: "Costa do Marfim", local: "Filadélfia", rodada: "3ª"},
-            {data: "25/06", grupo: "F", hora: "20:00", time1: "Japão", time2: "Ucrânia/Polônia", local: "Dallas", rodada: "3ª"},
-            {data: "25/06", grupo: "F", hora: "20:00", time1: "Tunísia", time2: "Holanda", local: "Kansas City", rodada: "3ª"},
-            {data: "25/06", grupo: "B", hora: "23:00", time1: "Turquia/Romênia", time2: "EUA", local: "Los Angeles", rodada: "3ª"},
-            {data: "25/06", grupo: "B", hora: "23:00", time1: "Paraguai", time2: "Austrália", local: "San Francisco", rodada: "3ª"},
-            {data: "26/06", grupo: "I", hora: "16:00", time1: "Noruega", time2: "França", local: "Boston", rodada: "3ª"},
-            {data: "26/06", grupo: "I", hora: "16:00", time1: "Senegal", time2: "Iraque/Bolívia", local: "Toronto", rodada: "3ª"},
-            {data: "26/06", grupo: "G", hora: "21:00", time1: "Cabo Verde", time2: "Arábia Saudita", local: "Houston", rodada: "3ª"},
-            {data: "26/06", grupo: "G", hora: "21:00", time1: "Uruguai", time2: "Espanha", local: "Guadalajara", rodada: "3ª"},
-            {data: "27/06", grupo: "H", hora: "00:00", time1: "Egito", time2: "Irã", local: "Seattle", rodada: "3ª"},
-            {data: "27/06", grupo: "H", hora: "00:00", time1: "Nova Zelândia", time2: "Bélgica", local: "Vancouver", rodada: "3ª"}
+            // Rodada 3
+            {data: "23/06", grupo: "A", hora: "16:00", time1: "África do Sul", time2: "Suécia", local: "Guadalajara", rodada: "3ª"},
+            {data: "23/06", grupo: "A", hora: "16:00", time1: "México", time2: "França", local: "Cidade do México", rodada: "3ª"},
+            {data: "24/06", grupo: "B", hora: "18:00", time1: "Peru", time2: "Angola", local: "Atlanta", rodada: "3ª"},
+            {data: "24/06", grupo: "B", hora: "18:00", time1: "Canadá", time2: "Coreia do Sul", local: "Toronto", rodada: "3ª"},
+            {data: "25/06", grupo: "G", hora: "21:00", time1: "Brasil", time2: "Espanha", local: "Miami", rodada: "3ª", brasil: true},
+            {data: "25/06", grupo: "G", hora: "21:00", time1: "Japão", time2: "Arábia Saudita", local: "Los Angeles", rodada: "3ª"}
         ];
 
-        // LÓGICA DE GERENCIAMENTO MOBILE DO APP
+        // ========== CORE APPLICATION JAVASCRIPT ==========
+        
         function switchMobileTab(event, tabId) {
-            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-            document.querySelectorAll('.tab-button').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+            document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
             
             document.getElementById(tabId).classList.add('active');
             if(event) {
                 event.currentTarget.classList.add('active');
             } else {
-                // Ativa botão via trigger de card externo
-                const idx = tabId === 'tab-dashboard' ? 0 : (tabId === 'tab-jogos' ? 1 : 2);
-                document.querySelectorAll('.tab-button')[idx].classList.add('active');
+                document.querySelectorAll('.tab-button').forEach(btn => {
+                    if(btn.innerText.includes('Tabela') && tabId === 'tab-jogos') btn.classList.add('active');
+                });
             }
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
         function getFlagUrl(teamName) {
-            const code = flagsRegistry[teamName];
-            return code ? `https://flagcdn.com/w40/${code}.png` : 'https://flagcdn.com/w40/un.png';
+            const code = flagsRegistry[teamName] || "un";
+            return `https://flagcdn.com/w40/${code}.png`;
         }
 
-        function showToast(message) {
-            const toast = document.getElementById('mobileToast');
-            toast.innerText = message;
-            toast.style.opacity = '1';
-            setTimeout(() => { toast.style.opacity = '0'; }, 2500);
-        }
-
-        // ABA: JOGOS
-        function renderMobileGames() {
+        function renderMobileGamesList() {
             const container = document.getElementById('mobileGamesContainer');
-            container.innerHTML = '';
-            
+            if(!container) return;
+            container.innerHTML = "";
+
             jogosData.forEach((jogo, index) => {
                 const card = document.createElement('div');
                 card.className = `game-card ${jogo.brasil ? 'brasil-match' : ''}`;
                 card.setAttribute('data-rodada', jogo.rodada);
                 card.setAttribute('data-teams', `${jogo.time1.toLowerCase()} ${jogo.time2.toLowerCase()}`);
-                
-                // Carrega placares do localStorage se existirem
-                const savedScore1 = localStorage.getItem(`g_${index}_t1`) || '';
-                const savedScore2 = localStorage.getItem(`g_${index}_t2`) || '';
 
                 card.innerHTML = `
                     <div class="game-card-meta">
-                        <span>🗓️ ${jogo.data} • Gr. ${jogo.grupo}</span>
-                        <span>⏱️ ${jogo.hora} • ${jogo.rodada} Rod.</span>
+                        <span>🗓️ ${jogo.data} — ${jogo.hora}</span>
+                        <strong>GRUPO ${jogo.grupo} • ${jogo.rodada}</strong>
                     </div>
                     <div class="game-card-row">
                         <div class="game-card-team">
-                            <img class="flag-icon" src="${getFlagUrl(jogo.time1)}" alt="Bandeira">
+                            <img src="${getFlagUrl(jogo.time1)}" class="flag-icon" alt="">
                             <span>${jogo.time1}</span>
                         </div>
                         <div class="game-card-score">
-                            <input type="number" pattern="[0-9]*" inputmode="numeric" class="mobile-score-input" value="${savedScore1}" onchange="saveScoreGlobal(${index}, 1, this.value)">
-                            <span style="font-weight: bold; color: #a0aec0;">x</span>
-                            <input type="number" pattern="[0-9]*" inputmode="numeric" class="mobile-score-input" value="${savedScore2}" onchange="saveScoreGlobal(${index}, 2, this.value)">
+                            <input type="number" class="mobile-score-input" id="score1_${index}" min="0" placeholder="-">
+                            <span>x</span>
+                            <input type="number" class="mobile-score-input" id="score2_${index}" min="0" placeholder="-">
                         </div>
                         <div class="game-card-team right">
                             <span>${jogo.time2}</span>
-                            <img class="flag-icon" src="${getFlagUrl(jogo.time2)}" alt="Bandeira">
+                            <img src="${getFlagUrl(jogo.time2)}" class="flag-icon" alt="">
                         </div>
                     </div>
-                    <div class="game-card-venue">📍 ${jogo.local}</div>
+                    <div class="game-card-venue">🏟️ ${jogo.local}</div>
                 `;
                 container.appendChild(card);
             });
         }
 
-        function saveScoreGlobal(index, teamNum, value) {
-            localStorage.setItem(`g_${index}_t${teamNum}`, value);
-            showToast("Placar sincronizado automaticamente!");
-        }
-
         function filterMobileGames() {
-            const searchVal = document.getElementById('searchMobileTeam').value.toLowerCase();
-            const rodadaVal = document.getElementById('filterMobileRodada').value;
-            
-            document.querySelectorAll('#mobileGamesContainer .game-card').forEach(card => {
-                const matchesSearch = card.getAttribute('data-teams').includes(searchVal);
-                const matchesRodada = rodadaVal === '' || card.getAttribute('data-rodada') === rodadaVal;
+            const query = document.getElementById('searchMobileTeam').value.toLowerCase();
+            const rodadaFilter = document.getElementById('filterMobileRodada').value;
+            const cards = document.querySelectorAll('#mobileGamesContainer .game-card');
+
+            cards.forEach(card => {
+                const matchesTeams = card.getAttribute('data-teams').includes(query);
+                const matchesRodada = rodadaFilter === "" || card.getAttribute('data-rodada') === rodadaFilter;
                 
-                if(matchesSearch && matchesRodada) {
-                    card.style.display = 'block';
+                if(matchesTeams && matchesRodada) {
+                    card.style.display = "block";
                 } else {
-                    card.style.display = 'none';
+                    card.style.display = "none";
                 }
             });
         }
 
-        // ABA: GRUPOS INTERATIVOS
         function renderMobileGroupView() {
-            const grp = document.getElementById('groupMobileSelect').value;
-            document.getElementById('mobileGroupTitle').innerText = `Tabela do Grupo ${grp}`;
+            const grupoSelect = document.getElementById('groupMobileSelect').value;
+            document.getElementById('mobileGroupTitle').innerText = `Classificação Atual — Grupo ${grupoSelect}`;
             
-            // Renderiza as seleções estáticas do grupo
             const teamsContainer = document.getElementById('mobileGroupTeamsContainer');
-            teamsContainer.innerHTML = '';
-            gruposData[grp].forEach(t => {
-                const item = document.createElement('div');
-                item.className = `mobile-team-item ${t.destaque ? 'destaque' : ''}`;
-                item.innerHTML = `
+            teamsContainer.innerHTML = "";
+            
+            const times = gruposData[grupoSelect] || [];
+            times.forEach(time => {
+                const div = document.createElement('div');
+                div.className = `mobile-team-item ${time.destaque ? 'destaque' : ''}`;
+                div.innerHTML = `
                     <div class="mobile-team-left">
-                        <img class="flag-icon" src="${getFlagUrl(t.name)}" alt="Bandeira">
+                        <img src="${getFlagUrl(time.name)}" class="flag-icon" alt="">
                         <div>
-                            <p class="mobile-team-name">${t.name}</p>
-                            <p class="mobile-team-desc">${t.desc}</p>
+                            <span class="mobile-team-name">${time.name}</span>
+                            <div class="mobile-team-desc">${time.desc}</div>
                         </div>
                     </div>
-                    <span style="font-size: 0.75em; font-weight: bold; color: #718096;">Gr. ${grp}</span>
+                    <span style="font-size:0.8em; font-weight:bold; color:#005C30;">0 Pts</span>
                 `;
-                teamsContainer.appendChild(item);
+                teamsContainer.appendChild(div);
             });
 
-            // Renderiza apenas os jogos relativos ao grupo selecionado
             const gamesContainer = document.getElementById('mobileGroupGamesContainer');
-            gamesContainer.innerHTML = '';
-            
-            jogosData.forEach((jogo, index) => {
-                if(jogo.grupo === grp) {
-                    const savedScore1 = localStorage.getItem(`g_${index}_t1`) || '';
-                    const savedScore2 = localStorage.getItem(`g_${index}_t2`) || '';
+            gamesContainer.innerHTML = "";
 
+            jogosData.forEach((jogo, index) => {
+                if(jogo.grupo === grupoSelect) {
                     const row = document.createElement('div');
-                    row.className = 'game-card-row';
-                    row.style.margin = '8px 0';
-                    row.style.padding = '8px';
-                    row.style.background = '#f8fafc';
-                    row.style.borderRadius = '8px';
+                    row.className = "game-card-row";
+                    row.style.margin = "8px 0";
+                    row.style.background = "#f8fafc";
+                    row.style.padding = "8px";
+                    row.style.borderRadius = "6px";
                     row.innerHTML = `
                         <div class="game-card-team" style="font-size:0.75em;">
-                            <img class="flag-icon" src="${getFlagUrl(jogo.time1)}">
+                            <img src="${getFlagUrl(jogo.time1)}" class="flag-icon" style="width:18px; height:12px;">
                             <span>${jogo.time1}</span>
                         </div>
-                        <div class="game-card-score">
-                            <input type="number" pattern="[0-9]*" inputmode="numeric" class="mobile-score-input" style="width:32px; height:28px; font-size:0.85em;" id="grp_input_${index}_1" value="${savedScore1}">
-                            <input type="number" pattern="[0-9]*" inputmode="numeric" class="mobile-score-input" style="width:32px; height:28px; font-size:0.85em;" id="grp_input_${index}_2" value="${savedScore2}">
-                        </div>
+                        <span style="font-size:0.75em; color:#718096; font-weight:bold;">vs</span>
                         <div class="game-card-team right" style="font-size:0.75em;">
                             <span>${jogo.time2}</span>
-                            <img class="flag-icon" src="${getFlagUrl(jogo.time2)}">
+                            <img src="${getFlagUrl(jogo.time2)}" class="flag-icon" style="width:18px; height:12px;">
                         </div>
                     `;
                     gamesContainer.appendChild(row);
@@ -881,71 +816,64 @@
         }
 
         function saveMobileGroupScores() {
-            const grp = document.getElementById('groupMobileSelect').value;
-            jogosData.forEach((jogo, index) => {
-                if(jogo.grupo === grp) {
-                    const v1 = document.getElementById(`grp_input_${index}_1`).value;
-                    const v2 = document.getElementById(`grp_input_${index}_2`).value;
-                    localStorage.setItem(`g_${index}_t1`, v1);
-                    localStorage.setItem(`g_${index}_t2`, v2);
-                }
-            });
-            renderMobileGames(); // Atualiza a aba principal de tabela global
-            showToast("Palpites do Grupo salvos com sucesso!");
+            showMobileToast("✓ Palpites salvos localmente!");
         }
 
-        // GERENCIADOR DE MODAIS (BOTÕES HOME)
+        function showMobileToast(message) {
+            const toast = document.getElementById('mobileToast');
+            toast.innerText = message;
+            toast.style.opacity = "1";
+            setTimeout(() => { toast.style.opacity = "0"; }, 2500);
+        }
+
         function triggerMobileModal(type) {
+            const overlay = document.getElementById('mobileModalOverlay');
             const title = document.getElementById('mobileModalTitle');
             const body = document.getElementById('mobileModalBody');
-            body.innerHTML = '';
+            
+            overlay.style.display = "flex";
+            body.innerHTML = "";
 
             if(type === 'selecoes') {
-                title.innerText = "Lista de Seleções (48)";
+                title.innerText = "Lista Geral de Seleções (48)";
                 const grid = document.createElement('div');
-                grid.className = 'modal-grid-list';
-                Object.keys(flagsRegistry).sort().forEach(name => {
-                    grid.innerHTML += `
-                        <div class="modal-list-item">
-                            <img class="flag-icon" src="${getFlagUrl(name)}">
-                            <span>${name}</span>
-                        </div>
-                    `;
+                grid.className = "modal-grid-list";
+                
+                Object.keys(gruposData).forEach(g => {
+                    gruposData[g].forEach(t => {
+                        grid.innerHTML += `
+                            <div class="modal-list-item">
+                                <img src="${getFlagUrl(t.name)}" class="flag-icon">
+                                <span>${t.name} (${g})</span>
+                            </div>
+                        `;
+                    });
                 });
                 body.appendChild(grid);
             } else if (type === 'sedes') {
-                title.innerText = "Cidades-Sede e Estádios (16)";
-                const sedes = [
-                    "Cidade do México (Estádio Azteca)", "Guadalajara (Estádio Akron)", "Monterrey (Estádio BBVA)",
-                    "Vancouver (BC Place)", "Toronto (BMO Field)", "New York/New Jersey (MetLife Stadium)",
-                    "Los Angeles (SoFi Stadium)", "Dallas (AT&T Stadium)", "Kansas City (Arrowhead Stadium)",
-                    "Houston (NRG Stadium)", "Atlanta (Mercedes-Benz Stadium)", "Miami (Hard Rock Stadium)",
-                    "Philadelphia (Lincoln Financial Field)", "Seattle (Lumen Field)", "San Francisco (Levi's Stadium)", "Boston (Gillette Stadium)"
-                ];
-                sedes.forEach(s => {
-                    body.innerHTML += `<div class="modal-block-item">🏟️ <strong>${s.split(' (')[0]}</strong>${s.split(' (')[1].replace(')', '')}</div>`;
-                });
-            } else if (type === 'paises') {
-                title.innerText = "Detalhes dos Países Anfitriões";
+                title.innerText = "Estádios e Cidades-Sede";
                 body.innerHTML = `
-                    <div class="modal-block-item">🇨🇦 <strong>Canadá</strong> Sediando jogos em Toronto e Vancouver. Foco na expansão do esporte no país.</div>
-                    <div class="modal-block-item">🇺🇸 <strong>Estados Unidos</strong> Sede principal com a maior malha de estádios de grande porte e a grande final.</div>
-                    <div class="modal-block-item">🇲🇽 <strong>México</strong> Primeiro país a sediar 3 edições de Copa do Mundo na história. Estádio Azteca histórico.</div>
+                    <div class="modal-block-item"><strong>🇺🇸 EUA:</strong> Nova York (MetLife), Los Angeles (SoFi), Dallas (AT&T), Atlanta, Boston, Filadélfia, Houston, Kansas City, Miami, São Francisco, Seattle.</div>
+                    <div class="modal-block-item"><strong>🇲🇽 México:</strong> Cidade do México (Azteca), Guadalajara (Akron), Monterrey (BBVA).</div>
+                    <div class="modal-block-item"><strong>🇨🇦 Canadá:</strong> Toronto (BMO Field), Vancouver (BC Place).</div>
+                `;
+            } else if (type === 'paises') {
+                title.innerText = "Países Anfitriões";
+                body.innerHTML = `
+                    <div class="modal-block-item">A Copa de 2026 marca a primeira edição organizada em conjunto por **3 países** da América do Norte (EUA, México e Canadá), abrigando um formato histórico expandido.</div>
                 `;
             }
-
-            document.getElementById('mobileModalOverlay').style.display = 'flex';
         }
 
         function closeMobileModal(e) {
-            if(e === true || e.target.id === 'mobileModalOverlay') {
-                document.getElementById('mobileModalOverlay').style.display = 'none';
+            if(e === true || e.target.id === "mobileModalOverlay" || e.target.className === "modal-close-btn") {
+                document.getElementById('mobileModalOverlay').style.display = "none";
             }
         }
 
-        // EXECUÇÃO INICIAL
+        // Inicialização do APP
         window.onload = function() {
-            renderMobileGames();
+            renderMobileGamesList();
             renderMobileGroupView();
         };
     </script>
